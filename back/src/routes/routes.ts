@@ -5,6 +5,12 @@ import {
   registerUser,
   loginUser,
 } from "../controllers/usersControllers";
+import {
+  cancelAppointment,
+  getAppointmentById,
+  getAppointments,
+  scheduleAppointment,
+} from "../controllers/appointmentsControllers";
 
 const router = Router();
 
@@ -15,9 +21,9 @@ router.post("/users/register", registerUser);
 router.post("/users/login", loginUser);
 
 // appointments routes
-router.get("/appointments", () => {});
-router.get("/appointments/:id", () => {});
-router.post("/appointments/schedule", () => {});
-router.put("/appointments/cancel", () => {});
+router.get("/appointments", getAppointments);
+router.get("/appointments/:id", getAppointmentById);
+router.post("/appointments/schedule", scheduleAppointment);
+router.put("/appointments/cancel", cancelAppointment);
 
 export default router;
