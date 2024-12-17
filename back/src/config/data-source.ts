@@ -3,7 +3,6 @@ import { User } from "../entities/User";
 import { Appointment } from "../entities/Appointment";
 import { Credential } from "../entities/Credential";
 
-
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
