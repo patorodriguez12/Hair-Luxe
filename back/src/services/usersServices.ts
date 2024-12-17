@@ -1,5 +1,15 @@
-// por el momento vacio
+import { UserModel } from "../config/data-source";
+import UserDto from "../dto/userDto";
+import { User } from "../entities/User";
+import IUser from "../interfaces/IUsers";
 
-// entender bien para que funcionan los services
+export const getUsersService = async (): Promise<User[]> => {
+  const users = await UserModel.find();
+  return users;
+};
 
-// por ahora al no tener funcionalidades no son necesarios, al parecer
+export const createUserService = async (userData: UserDto) => {
+  const newUser = UserModel.create(userData);
+  const result = await UserModel.save(newUser);
+  return result;
+};

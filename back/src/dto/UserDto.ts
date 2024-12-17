@@ -1,4 +1,4 @@
-interface IUser {
+interface UserDto {
   name: string;
   email: string;
   birthdate: string;
@@ -6,4 +6,4 @@ interface IUser {
   credentialsId: number;
 }
 
-export default IUser;
+export default UserDto;
