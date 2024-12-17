@@ -3,7 +3,7 @@ interface IAppointments {
   date: string;
   time: string;
   userId: number;
-  status: string;
+  status: boolean;
 }
 
 export default IAppointments;
