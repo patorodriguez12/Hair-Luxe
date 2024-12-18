@@ -1,7 +1,6 @@
 import { DataSource } from "typeorm";
 import { User } from "../entities/User";
 import { Appointment } from "../entities/Appointment";
-import { Credential } from "../entities/Credential";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,13 +9,13 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "3996161812",
   database: "hairluxe",
+  dropSchema: false,
   synchronize: true,
   logging: false,
-  entities: [User, Appointment, Credential],
+  entities: [User, Appointment],
   subscribers: [],
   migrations: [],
 });
 
 export const UserModel = AppDataSource.getRepository(User);
 export const AppointmentModel = AppDataSource.getRepository(Appointment);
-export const CredentialModel = AppDataSource.getRepository(Credential);

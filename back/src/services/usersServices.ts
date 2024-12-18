@@ -1,7 +1,6 @@
 import { UserModel } from "../config/data-source";
-import UserDto from "../dto/userDto";
+import UserDto from "../dto/UserDto"; 
 import { User } from "../entities/User";
-import IUser from "../interfaces/IUsers";
 
 export const getUsersService = async (): Promise<User[]> => {
   const users = await UserModel.find();

@@ -12,15 +12,15 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, birthdate, nDni, credentialsId } = req.body;
+  const { name, email, password, birthdate, nDni} = req.body;
   const newUser: User = await createUserService({
     name,
     email,
+    password,
     birthdate,
     nDni,
-    credentialsId,
   });
-  res.status(201).json(newUser); 
+  res.status(201).json(newUser);
 };
 
 export const loginUser = async (req: Request, res: Response) => {

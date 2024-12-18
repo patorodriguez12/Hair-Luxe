@@ -2,11 +2,9 @@ import {
   Column,
   Entity,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Appointment } from "./Appointment";
-import { Credential } from "./Credential";
 
 @Entity({
   name: "users",
@@ -22,6 +20,9 @@ export class User {
   email: string;
 
   @Column()
+  password: string;
+
+  @Column()
   birthdate: string;
 
   @Column()
@@ -29,7 +30,4 @@ export class User {
 
   @OneToMany(() => Appointment, (appointment) => appointment.user)
   appointments: Appointment[];
-
-  @OneToOne(() => Credential, (credentials) => credentials.user)
-  credentials: Credential;
 }
