@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  cancelAppointmentService,
   getAppointmentByIdService,
   getAppointmentsService,
   scheduleAppointmentService,
@@ -35,5 +36,18 @@ export const scheduleAppointment = async (req: Request, res: Response) => {
 };
 
 export const cancelAppointment = async (req: Request, res: Response) => {
-  res.status(200).json("Endpoint para cancelar un appointment");
+  const { id } = req.params;
+
+  try {
+    const appointmentId = Number(id);
+
+    const cancelledAppointment = await cancelAppointmentService(appointmentId);
+
+    res.status(200).json({
+      message: `Appointment with id ${id} was cancelled successfully`,
+      appointment: cancelAppointment,
+    });
+  } catch (error: any) {
+    res.status(404).json({ error: error.message });
+  }
 };

@@ -36,3 +36,17 @@ export const scheduleAppointmentService = async (
   const result = AppointmentModel.save(newAppointment);
   return result;
 };
+
+export const cancelAppointmentService = async (
+  id: number
+): Promise<Appointment | null> => {
+  const appointment = await AppointmentModel.findOneBy({ id });
+  if (!appointment) {
+    throw new Error("Appointment not found");
+  }
+
+  appointment.status = "cancelled";
+  const updatedAppointment = await AppointmentModel.save(appointment);
+
+  return updatedAppointment;
+};
