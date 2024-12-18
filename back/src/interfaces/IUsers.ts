@@ -4,7 +4,6 @@ interface IUser {
   password: string;
   birthdate: string;
   nDni: number;
-  credentialsId: number;
 }
 
 export default IUser;
