@@ -15,7 +15,7 @@ export class Appointment {
   time: string;
 
   @Column()
-  status: boolean;
+  status: string;
 
   @ManyToOne(() => User, (user) => user.appointments, { onDelete: "CASCADE" })
   user: User;

@@ -10,13 +10,13 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 };
 
 export const scheduleAppointment = async (req: Request, res: Response) => {
-  const { userId, date, time, status } = req.body;
+  const { userId, date, time } = req.body;
 
   try {
     const newAppointment = await scheduleAppointmentService(userId, {
       date,
       time,
-      status,
+      status: "active",
     });
     res.status(201).json(newAppointment);
   } catch (error: any) {
