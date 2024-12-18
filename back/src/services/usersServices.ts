@@ -3,7 +3,7 @@ import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
 
 export const getUsersService = async (): Promise<User[]> => {
-  const users = await UserModel.find();
+  const users = await UserModel.find({ relations: ["appointments"] });
   return users;
 };
 
