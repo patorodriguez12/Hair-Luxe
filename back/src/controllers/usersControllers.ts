@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { User } from "../entities/User";
-import { createUserService, getUsersService } from "../services/usersServices";
+import {
+  createUserService,
+  getUserByIdService,
+  getUsersService,
+} from "../services/usersServices";
 
 export const getUsers = async (req: Request, res: Response) => {
   const users: User[] = await getUsersService();
@@ -8,11 +12,13 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getUserById = async (req: Request, res: Response) => {
-  res.status(200).json("Endpoint para obtener un usuario por su ID");
+  const { id } = req.params;
+  const user: User | null = await getUserByIdService(Number(id));
+  res.status(200).json(user);
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, nDni} = req.body;
+  const { name, email, password, birthdate, nDni } = req.body;
   const newUser: User = await createUserService({
     name,
     email,
