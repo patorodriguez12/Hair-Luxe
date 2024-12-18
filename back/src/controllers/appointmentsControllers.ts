@@ -1,12 +1,22 @@
 import { Request, Response } from "express";
-import { scheduleAppointmentService } from "../services/appointmentsServices";
+import {
+  getAppointmentByIdService,
+  getAppointmentsService,
+  scheduleAppointmentService,
+} from "../services/appointmentsServices";
+import { Appointment } from "../entities/Appointment";
 
 export const getAppointments = async (req: Request, res: Response) => {
-  res.status(200).json("Endpoint para obtener todos los appointments");
+  const appointments: Appointment[] = await getAppointmentsService();
+  res.status(200).json(appointments);
 };
 
 export const getAppointmentById = async (req: Request, res: Response) => {
-  res.status(200).json("Endpoint para obtener un appointment especifico");
+  const { id } = req.params;
+  const appointment: Appointment | null = await getAppointmentByIdService(
+    Number(id)
+  );
+  res.status(200).json(appointment);
 };
 
 export const scheduleAppointment = async (req: Request, res: Response) => {

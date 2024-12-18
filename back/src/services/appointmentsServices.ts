@@ -7,6 +7,15 @@ export const getAppointmentsService = async (): Promise<Appointment[]> => {
   return appointments;
 };
 
+export const getAppointmentByIdService = async (
+  id: number
+): Promise<Appointment | null> => {
+  const appointment = AppointmentModel.findOneBy({
+    id,
+  });
+  return appointment;
+};
+
 export const scheduleAppointmentService = async (
   userId: number,
   appointmentData: AppointmentsDto
