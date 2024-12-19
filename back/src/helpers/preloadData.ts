@@ -1,10 +1,8 @@
-import {
-  AppDataSource,
-  AppointmentModel,
-  UserModel,
-} from "../config/data-source";
+import { AppDataSource } from "../config/data-source";
 import { appointmentData } from "./appointmentData";
 import { userData } from "./userData";
+import AppointmentRepository from "../repositories/AppointmentRepository";
+import UserRepository from "../repositories/UserRepository";
 
 const preloadUsers = userData;
 const preloadAppointments = appointmentData;
@@ -12,14 +10,14 @@ const preloadAppointments = appointmentData;
 export const preloadUserData = async () => {
   await AppDataSource.manager.transaction(
     async (transactionalEntityManager) => {
-      const users = await UserModel.find();
+      const users = await UserRepository.find();
       if (users.length)
         return console.log(
           "Users data preload failed, data already preloaded."
         );
 
       for await (const user of preloadUsers) {
-        const newUser = await UserModel.create(user);
+        const newUser = await UserRepository.create(user);
         await transactionalEntityManager.save(newUser);
       }
 
@@ -36,14 +34,15 @@ export const preloadAppointmentsData = async () => {
     await queryRunner.startTransaction();
 
     for (const appointment of preloadAppointments) {
-      const newAppointment = await AppointmentModel.create(appointment);
+      const newAppointment = await AppointmentRepository.create(appointment);
       await queryRunner.manager.save(newAppointment);
 
-      const user = await UserModel.findOneBy({ id: appointment.userId });
-      if (!user) throw new Error(`User with id ${appointment.userId} does not exist`);
+      const user = await UserRepository.findOneBy({ id: appointment.userId });
+      if (!user)
+        throw new Error(`User with id ${appointment.userId} does not exist`);
 
-      const anyAppointment = await AppointmentModel.find();
-      if (anyAppointment.length) throw new Error (`Data already preloaded.`)
+      const anyAppointment = await AppointmentRepository.find();
+      if (anyAppointment.length) throw new Error(`Data already preloaded.`);
 
       newAppointment.user = user;
       await queryRunner.manager.save(newAppointment);
