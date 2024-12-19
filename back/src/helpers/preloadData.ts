@@ -42,6 +42,9 @@ export const preloadAppointmentsData = async () => {
       const user = await UserModel.findOneBy({ id: appointment.userId });
       if (!user) throw new Error(`User with id ${appointment.userId} does not exist`);
 
+      const anyAppointment = await AppointmentModel.find();
+      if (anyAppointment.length) throw new Error (`Data already preloaded.`)
+
       newAppointment.user = user;
       await queryRunner.manager.save(newAppointment);
     }
