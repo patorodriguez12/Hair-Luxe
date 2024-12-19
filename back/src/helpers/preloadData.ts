@@ -14,7 +14,9 @@ export const preloadUserData = async () => {
     async (transactionalEntityManager) => {
       const users = await UserModel.find();
       if (users.length)
-        return console.log("Users data preload failed, data already preloaded.");
+        return console.log(
+          "Users data preload failed, data already preloaded."
+        );
 
       for await (const user of preloadUsers) {
         const newUser = await UserModel.create(user);
@@ -27,24 +29,30 @@ export const preloadUserData = async () => {
 };
 
 export const preloadAppointmentsData = async () => {
-  await AppDataSource.manager.transaction(
-    async (transactionalEntityManager) => {
-        const appointments = await AppointmentModel.find();
-        if (appointments.length) 
-            return console.log("Appointments data preload failed, data already preloaded.")
-      for await (const appointment of preloadAppointments) {
-        const newAppointment = await AppointmentModel.create(appointment);
-        await transactionalEntityManager.save(newAppointment);
-        const user = await UserModel.findOneBy({ id: appointment.userId });
-        if (user) {
-          newAppointment.user = user;
-          transactionalEntityManager.save(newAppointment);
-        } else {
-          console.log("Appointment creation error");
-        }
-      }
+  const queryRunner = AppDataSource.createQueryRunner();
+  await queryRunner.connect();
 
-      console.log("Appointments data preload success.");
+  try {
+    await queryRunner.startTransaction();
+
+    for (const appointment of preloadAppointments) {
+      const newAppointment = await AppointmentModel.create(appointment);
+      await queryRunner.manager.save(newAppointment);
+
+      const user = await UserModel.findOneBy({ id: appointment.userId });
+      if (!user) throw new Error(`User with id ${appointment.userId} does not exist`);
+
+      newAppointment.user = user;
+      await queryRunner.manager.save(newAppointment);
     }
-  );
+
+    await queryRunner.commitTransaction();
+    console.log("Appointments data preload success.");
+  } catch (error: any) {
+    console.error(`Error preloading appointments: ${error.message}`);
+    await queryRunner.rollbackTransaction();
+  } finally {
+    console.log("Preload attempt ended.");
+    await queryRunner.release();
+  }
 };
