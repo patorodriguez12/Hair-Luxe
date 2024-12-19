@@ -40,7 +40,7 @@ export const preloadAppointmentsData = async () => {
           newAppointment.user = user;
           transactionalEntityManager.save(newAppointment);
         } else {
-          console.log("aassign");
+          console.log("Appointment creation error");
         }
       }
 

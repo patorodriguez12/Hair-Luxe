@@ -45,7 +45,7 @@ export const cancelAppointment = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: `Appointment with id ${id} was cancelled successfully`,
-      appointment: cancelAppointment,
+      appointment: cancelledAppointment,
     });
   } catch (error: any) {
     res.status(404).json({ error: error.message });
