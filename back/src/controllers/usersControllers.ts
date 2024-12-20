@@ -19,12 +19,17 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const registerUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, nDni } = req.body;
-  const newUser: User = await registerUserService({
-    name,
-    email,
-    password,
-    birthdate,
-    nDni,
-  });
-  res.status(201).json(newUser);
+
+  try {
+    const newUser: User = await registerUserService({
+      name,
+      email,
+      password,
+      birthdate,
+      nDni,
+    });
+    res.status(201).json(newUser);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 };

@@ -8,6 +8,13 @@ export const getUsersService = async (): Promise<User[]> => {
 };
 
 export const registerUserService = async (userData: UserDto) => {
+  const existingUser = await UserRepository.findOneBy({
+    email: userData.email,
+  });
+  if (existingUser) {
+    throw new Error(`User with email ${userData.email} already exists.`);
+  }
+
   const newUser = UserRepository.create(userData);
   const result = await UserRepository.save(newUser);
   return result;
