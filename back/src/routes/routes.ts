@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
   getUsers,
   getUserById,
-  registerUser
+  registerUser,
+  loginUser
 } from "../controllers/usersControllers";
 import {
   cancelAppointment,
@@ -17,6 +18,7 @@ const router = Router();
 router.get("/users", getUsers);
 router.get("/users/:id", getUserById);
 router.post("/users/register", registerUser);
+router.post("/users/login", loginUser)
 
 // appointments routes
 router.get("/appointments", getAppointments);

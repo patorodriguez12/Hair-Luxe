@@ -3,7 +3,6 @@ import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
 const bcrypt = require("bcrypt");
 
-
 // GET ALL USERS SERVICE
 export const getUsersService = async (): Promise<User[]> => {
   const users = await UserRepository.find({ relations: ["appointments"] });
@@ -12,7 +11,6 @@ export const getUsersService = async (): Promise<User[]> => {
 
 // GET USER BY ID SERVICE
 export const getUserByIdService = async (id: number): Promise<User | null> => {
-
   // find user by id with appointments relation
   const user = await UserRepository.findOne({
     where: { id },
@@ -26,10 +24,8 @@ export const getUserByIdService = async (id: number): Promise<User | null> => {
   return user;
 };
 
-
 // REGISTER USER SERVICE
 export const registerUserService = async (userData: UserDto) => {
-
   // check if email already exists
   const existingUser = await UserRepository.findOneBy({
     email: userData.email,
@@ -50,4 +46,30 @@ export const registerUserService = async (userData: UserDto) => {
   });
   const result = await UserRepository.save(newUser);
   return result;
+};
+
+// LOGIN USER SERVICE
+export const loginUserService = async (
+  email: string,
+  password: string
+): Promise<User | null> => {
+  // search user by email
+  const user = await UserRepository.findOne({
+    where: { email: email },
+  });
+
+  // if user not found, throw error
+  if (!user) {
+    throw new Error(`User with email ${email} does not exists.`);
+  }
+
+  // check if password is correct
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  // if password is incorrect, throw error
+  if (!isPasswordValid) {
+    throw new Error("Incorrect password");
+  }
+
+  return user;
 };
