@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <h1>Bienvenidos a mi primer app</h1>
-      {!isRegistered && <Register />}
+      {isRegistered ? <Login /> : <Register />}
     </>
   );
 }
