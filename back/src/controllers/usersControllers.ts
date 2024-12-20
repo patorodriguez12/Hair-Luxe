@@ -13,8 +13,13 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const user: User | null = await getUserByIdService(Number(id));
-  res.status(200).json(user);
+
+  try {
+    const user: User | null = await getUserByIdService(Number(id));
+    res.status(200).json(user);
+  } catch (error: any) {
+    res.status(404).json({ error: error.message });
+  }
 };
 
 export const registerUser = async (req: Request, res: Response) => {

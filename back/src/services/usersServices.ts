@@ -24,6 +24,8 @@ export const getUserByIdService = async (id: number): Promise<User | null> => {
   const user = await UserRepository.findOneBy({
     id,
   });
-
+  if (!user) {
+    throw new Error(`User with id ${id} not exists`);
+  }
   return user;
 };
