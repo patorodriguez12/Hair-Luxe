@@ -7,7 +7,7 @@ export const getUsersService = async (): Promise<User[]> => {
   return users;
 };
 
-export const createUserService = async (userData: UserDto) => {
+export const registerUserService = async (userData: UserDto) => {
   const newUser = UserRepository.create(userData);
   const result = await UserRepository.save(newUser);
   return result;

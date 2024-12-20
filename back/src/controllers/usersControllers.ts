@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../entities/User";
 import {
-  createUserService,
+  registerUserService,
   getUserByIdService,
   getUsersService,
 } from "../services/usersServices";
@@ -19,7 +19,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const registerUser = async (req: Request, res: Response) => {
   const { name, email, password, birthdate, nDni } = req.body;
-  const newUser: User = await createUserService({
+  const newUser: User = await registerUserService({
     name,
     email,
     password,
@@ -27,8 +27,4 @@ export const registerUser = async (req: Request, res: Response) => {
     nDni,
   });
   res.status(201).json(newUser);
-};
-
-export const loginUser = async (req: Request, res: Response) => {
-  res.status(200).json("Endpoint para loguear un usuario");
 };
