@@ -3,6 +3,7 @@ import { appointmentData } from "./appointmentData";
 import { userData } from "./userData";
 import AppointmentRepository from "../repositories/AppointmentRepository";
 import UserRepository from "../repositories/UserRepository";
+const bcrypt = require("bcrypt");
 
 const preloadUsers = userData;
 const preloadAppointments = appointmentData;
@@ -17,7 +18,11 @@ export const preloadUserData = async () => {
         );
 
       for await (const user of preloadUsers) {
-        const newUser = await UserRepository.create(user);
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        const newUser = await UserRepository.create({
+          ...user,
+          password: hashedPassword,
+        });
         await transactionalEntityManager.save(newUser);
       }
 

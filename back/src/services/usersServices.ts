@@ -1,6 +1,7 @@
 import UserRepository from "../repositories/UserRepository";
 import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
+const bcrypt = require("bcrypt");
 
 export const getUsersService = async (): Promise<User[]> => {
   const users = await UserRepository.find({ relations: ["appointments"] });
@@ -15,7 +16,12 @@ export const registerUserService = async (userData: UserDto) => {
     throw new Error(`User with email ${userData.email} already exists.`);
   }
 
-  const newUser = UserRepository.create(userData);
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+  const newUser = UserRepository.create({
+    ...userData,
+    password: hashedPassword,
+  });
   const result = await UserRepository.save(newUser);
   return result;
 };
