@@ -1,6 +1,6 @@
 function Login() {
   return (
-    <div>
+    <div className="min-h-screen bg-blue-500 flex items-center justify-center">
       <h2>Login</h2>
       
       <form>
