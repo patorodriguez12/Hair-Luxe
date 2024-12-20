@@ -21,8 +21,9 @@ export const registerUserService = async (userData: UserDto) => {
 };
 
 export const getUserByIdService = async (id: number): Promise<User | null> => {
-  const user = await UserRepository.findOneBy({
-    id,
+  const user = await UserRepository.findOne({
+    where: { id },
+    relations: ["appointments"],
   });
   if (!user) {
     throw new Error(`User with id ${id} not exists`);
