@@ -4,7 +4,9 @@ import AppointmentRepository from "../repositories/AppointmentRepository";
 import UserRepository from "../repositories/UserRepository";
 
 export const getAppointmentsService = async (): Promise<Appointment[]> => {
-  const appointments = await AppointmentRepository.find();
+  const appointments = await AppointmentRepository.find({
+    relations: ["user"],
+  });
   return appointments;
 };
 
