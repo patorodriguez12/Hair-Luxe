@@ -1,13 +1,15 @@
-import { useState } from "react";
-import {myAppointments} from "../helpers/myAppointments";
+import { useEffect, useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
 
 function MyAppointments() {
-  const [appointments, setAppointments] = useState(myAppointments);
+  const [appointments, setAppointments] = useState([]);
+  const URL = "/appointments";
 
-  const addAppointment = (newAppointment) => {
-    setAppointments([...appointments, newAppointment]);
-  };
+  useEffect(() => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => setAppointments(data));
+  }, []);
 
   return (
     <div id="home" className="bg-gray-100 text-gray-800 py-12">
@@ -16,7 +18,6 @@ function MyAppointments() {
         {appointments.map((appointment) => (
           <AppointmentCard key={appointment.id} appointment={appointment} />
         ))}
-        <button onClick={() => addAppointment({})}>Agendar nuevo turno</button>
       </div>
     </div>
   );

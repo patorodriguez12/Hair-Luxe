@@ -7,4 +7,12 @@ export default defineConfig({
   css: {
     postcss: "./postcss.config.js",
   },
+  server: {
+    proxy: {
+      '/appointments': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
+  },
 });
