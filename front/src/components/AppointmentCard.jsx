@@ -4,31 +4,27 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
   const { date, time, status, id } = appointment;
 
   return (
-    <div
-      className="bg-white shadow-md rounded-lg p-4 border-t-4 transition-all hover:shadow-lg 
-                    border-blue-500"
-    >
+    <div className="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500 hover:shadow-xl transition-all">
       <div className="mb-4">
-        <h2 className="text-xl font-semibold text-gray-800">📅 {date}</h2>
-        <h3 className="text-lg text-gray-600">⏰ {time}</h3>
+        <h2 className="text-xl font-semibold text-gray-800">
+          📅 {appointment.date}
+        </h2>
+        <p className="text-lg text-gray-600">⏰ {appointment.time}</p>
       </div>
       <div
         className={`px-3 py-1 text-sm font-medium rounded-full w-fit ${
-          status === "Confirmed"
+          appointment.status === "active"
             ? "bg-green-100 text-green-700"
-            : status === "Pending"
-            ? "bg-yellow-100 text-yellow-700"
-            : "bg-red-100 text-red-700"
+            : "bg-yellow-100 text-yellow-700"
         }`}
       >
-        {status}
+        {appointment.status === "active" ? "Activo" : "Pendiente"}
       </div>
       <button
-        onClick={() => {
-          handleOnClick(id);
-        }}
+        className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+        onClick={() => handleOnClick(appointment.id)}
       >
-        Ver más
+        Ver Detalles
       </button>
     </div>
   );

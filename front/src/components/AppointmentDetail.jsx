@@ -19,37 +19,82 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
   console.log(appointment.user.name);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <button
-        onClick={handleOnClose}
-        className="absolute top-4 right-4 bg-red-500 text-white p-2 rounded-full"
-      >
-        X
-      </button>
-      <div className="bg-white p-4 rounded-lg shadow-lg max-w-md">
-        <h2 className="text-lg font-semibold mb-4">Detalles del Turno</h2>
-        <p>
-          <strong>📅 Fecha:</strong> {appointment.date}
-        </p>
-        <p>
-          <strong>⏰ Hora:</strong> {appointment.time}
-        </p>
-        <p>
-          <strong>Estado:</strong> {appointment.status}
-        </p>
-        <h3 className="text-md font-bold mt-4">Información del Usuario</h3>
-        <p>
-          <strong>Nombre:</strong> {appointment.user.name}
-        </p>
-        <p>
-          <strong>Email:</strong> {appointment.user.email}
-        </p>
-        <p>
-          <strong>Fecha de Nacimiento:</strong> {appointment.user.birthdate}
-        </p>
-        <p>
-          <strong>DNI:</strong> {appointment.user.nDni}
-        </p>
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+      <div className="relative bg-white rounded-xl shadow-2xl max-w-lg w-full mx-4">
+        {/* Botón de Cierre */}
+        <button
+          onClick={handleOnClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-all"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+
+        {/* Contenido del Modal */}
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-blue-700 mb-4">
+            Detalles del Turno
+          </h2>
+
+          {/* Información del Turno */}
+          <div className="mb-6">
+            <p className="text-lg mb-2">
+              <strong className="text-gray-700">📅 Fecha:</strong>{" "}
+              {appointment.date}
+            </p>
+            <p className="text-lg mb-2">
+              <strong className="text-gray-700">⏰ Hora:</strong>{" "}
+              {appointment.time}
+            </p>
+            <p className="text-lg">
+              <strong className="text-gray-700">Estado:</strong>{" "}
+              <span
+                className={`px-2 py-1 rounded-full text-sm ${
+                  appointment.status === "active"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-yellow-100 text-yellow-700"
+                }`}
+              >
+                {appointment.status === "active" ? "Activo" : "Pendiente"}
+              </span>
+            </p>
+          </div>
+
+          {/* Información del Usuario */}
+          <div className="border-t pt-4">
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+              Información del Usuario
+            </h3>
+            <p className="text-lg mb-2">
+              <strong className="text-gray-700">Nombre:</strong>{" "}
+              {appointment.user.name}
+            </p>
+            <p className="text-lg mb-2">
+              <strong className="text-gray-700">Email:</strong>{" "}
+              {appointment.user.email}
+            </p>
+            <p className="text-lg mb-2">
+              <strong className="text-gray-700">Fecha de Nacimiento:</strong>{" "}
+              {appointment.user.birthdate}
+            </p>
+            <p className="text-lg">
+              <strong className="text-gray-700">DNI:</strong>{" "}
+              {appointment.user.nDni}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
