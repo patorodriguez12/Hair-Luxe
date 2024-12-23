@@ -3,7 +3,7 @@ import axios from "axios";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
   const [appointment, setAppointment] = useState(null);
-  const URL = "http:/localhost:3000/appointments";
+  const URL = "http://localhost:3000/appointments";
 
   useEffect(() => {
     axios
@@ -16,7 +16,7 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
     return <div>Loading...</div>;
   }
 
-  const { date, time, status, user } = appointment;
+  console.log(appointment.user.name);
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -29,26 +29,26 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
       <div className="bg-white p-4 rounded-lg shadow-lg max-w-md">
         <h2 className="text-lg font-semibold mb-4">Detalles del Turno</h2>
         <p>
-          <strong>📅 Fecha:</strong> {date}
+          <strong>📅 Fecha:</strong> {appointment.date}
         </p>
         <p>
-          <strong>⏰ Hora:</strong> {time}
+          <strong>⏰ Hora:</strong> {appointment.time}
         </p>
         <p>
-          <strong>Estado:</strong> {status}
+          <strong>Estado:</strong> {appointment.status}
         </p>
         <h3 className="text-md font-bold mt-4">Información del Usuario</h3>
         <p>
-          <strong>Nombre:</strong> {user.name}
+          <strong>Nombre:</strong> {appointment.user.name}
         </p>
         <p>
-          <strong>Email:</strong> {user.email}
+          <strong>Email:</strong> {appointment.user.email}
         </p>
         <p>
-          <strong>Fecha de Nacimiento:</strong> {user.birthdate}
+          <strong>Fecha de Nacimiento:</strong> {appointment.user.birthdate}
         </p>
         <p>
-          <strong>DNI:</strong> {user.nDni}
+          <strong>DNI:</strong> {appointment.user.nDni}
         </p>
       </div>
     </div>
