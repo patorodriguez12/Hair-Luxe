@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
 import AppointmentDetail from "../components/AppointmentDetail";
+import axios from "axios";
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [detail, setDetail] = useState(false);
   const [id, setId] = useState(null);
-  const URL = "/appointments";
+  const URL = "http://localhost:3000/appointments";
 
   const handleOnClick = (appointmentId) => {
     setId(appointmentId);
@@ -18,9 +19,10 @@ const MyAppointments = () => {
   };
 
   useEffect(() => {
-    fetch(URL)
-      .then((response) => response.json())
-      .then((data) => setAppointments(data));
+    axios
+      .get(URL)
+      .then((response) => setAppointments(response.data))
+      .catch((error) => console.error("Error fetching appointments:", error));
   }, []);
 
   return (

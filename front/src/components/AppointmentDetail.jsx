@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
   const [appointment, setAppointment] = useState(null);
-  const URL = "/appointments";
+  const URL = "http:/localhost:3000/appointments";
 
   useEffect(() => {
-    fetch(`${URL}/${id}`)
-      .then((response) => response.json())
-      .then((data) => setAppointment(data));
+    axios
+      .get(`${URL}/${id}`)
+      .then((response) => setAppointment(response.data))
+      .catch((error) => console.error("Error fetching appointment:", error));
   }, [id]);
 
   if (!appointment) {
