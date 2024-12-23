@@ -21,7 +21,7 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
       <div className="relative bg-white rounded-xl shadow-2xl max-w-lg w-full mx-4">
-        {/* Botón de Cierre */}
+        {/* Closing button */}
         <button
           onClick={handleOnClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-red-500 transition-all"
@@ -42,13 +42,13 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
           </svg>
         </button>
 
-        {/* Contenido del Modal */}
+        {/* Modal Content */}
         <div className="p-6">
           <h2 className="text-2xl font-bold text-blue-700 mb-4">
             Detalles del Turno
           </h2>
 
-          {/* Información del Turno */}
+          {/* Appointment Info */}
           <div className="mb-6">
             <p className="text-lg mb-2">
               <strong className="text-gray-700">📅 Fecha:</strong>{" "}
@@ -72,7 +72,7 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
             </p>
           </div>
 
-          {/* Información del Usuario */}
+          {/* User info */}
           <div className="border-t pt-4">
             <h3 className="text-xl font-semibold text-gray-800 mb-3">
               Información del Usuario
