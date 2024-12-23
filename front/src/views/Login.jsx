@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validate } from "../utils/validate";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -6,11 +7,19 @@ const Login = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    email: "Correo electronico requerido",
+    password: "Contraseña requerida",
+  });
+  console.log(errors);
+
   const handleInputChange = (event) => {
     const { id, value } = event.target;
     setUserData({ ...userData, [id]: value });
-  };
 
+    setErrors(validate(userData));
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(`Email: ${userData.email}, Password: ${userData.password}`);
@@ -42,6 +51,7 @@ const Login = () => {
               value={userData.email}
               onChange={handleInputChange}
             />
+            {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
 
           {/* Password field */}
@@ -60,6 +70,9 @@ const Login = () => {
               value={userData.password}
               onChange={handleInputChange}
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password}</p>
+            )}
           </div>
 
           {/* Submit button */}
