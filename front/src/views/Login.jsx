@@ -31,8 +31,9 @@ const Login = () => {
           }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          validateOnMount={true}
         >
-          {() => (
+          {({ isValid }) => (
             <Form>
               {/* Email field */}
               <div className="mb-4">
@@ -80,8 +81,12 @@ const Login = () => {
 
               {/* Submit button */}
               <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+                className={`w-full py-2 px-4 rounded-md transition duration-200 ${
+                  isValid
+                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+                disabled={!isValid}
               >
                 Iniciar sesión
               </button>
