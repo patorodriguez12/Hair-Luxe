@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
   const [appointment, setAppointment] = useState(null);
@@ -98,6 +99,11 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
       </div>
     </div>
   );
+};
+
+AppointmentDetail.propTypes = {
+  handleOnClose: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default AppointmentDetail;

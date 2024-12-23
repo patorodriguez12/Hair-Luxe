@@ -1,8 +1,6 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const AppointmentCard = ({ appointment, handleOnClick }) => {
-  const { date, time, status, id } = appointment;
-
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500 hover:shadow-xl transition-all">
       <div className="mb-4">
@@ -28,6 +26,16 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
       </button>
     </div>
   );
+};
+
+AppointmentCard.propTypes = {
+  appointment: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  handleOnClick: PropTypes.func.isRequired,
 };
 
 export default AppointmentCard;
