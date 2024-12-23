@@ -13,8 +13,9 @@ export const getAppointmentsService = async (): Promise<Appointment[]> => {
 export const getAppointmentByIdService = async (
   id: number
 ): Promise<Appointment | null> => {
-  const appointment = AppointmentRepository.findOneBy({
-    id,
+  const appointment = AppointmentRepository.findOne({
+    where: { id },
+    relations: ["user"],
   });
   return appointment;
 };

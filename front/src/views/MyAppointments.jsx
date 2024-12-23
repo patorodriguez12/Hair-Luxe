@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
+import AppointmentDetail from "../components/AppointmentDetail";
 
-function MyAppointments() {
+const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [detail, setDetail] = useState(false);
+  const [id, setId] = useState(null);
   const URL = "/appointments";
+
+  const handleOnClick = (appointmentId) => {
+    setId(appointmentId);
+    setDetail(true);
+  };
+
+  const handleOnClose = () => {
+    setDetail(false);
+  };
 
   useEffect(() => {
     fetch(URL)
@@ -16,11 +28,16 @@ function MyAppointments() {
       <div className="container mx-auto text-center">
         <h1 className="text-4xl font-bold mb-4">MIS TURNOS</h1>
         {appointments.map((appointment) => (
-          <AppointmentCard key={appointment.id} appointment={appointment} />
+          <AppointmentCard
+            key={appointment.id}
+            appointment={appointment}
+            handleOnClick={handleOnClick}
+          />
         ))}
       </div>
+      {detail && <AppointmentDetail handleOnClose={handleOnClose} id={id} />}
     </div>
   );
-}
+};
 
 export default MyAppointments;
