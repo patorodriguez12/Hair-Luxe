@@ -5,6 +5,6 @@ const cors = require("cors");
 const server = express();
 server.use(express.json());
 server.use(router);
-server.use(cors());
+server.use(cors({ origin: "http://localhost:5173" }));
 
 export default server;

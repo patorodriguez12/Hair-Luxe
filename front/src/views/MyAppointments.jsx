@@ -7,7 +7,7 @@ const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [detail, setDetail] = useState(false);
   const [id, setId] = useState(null);
-  const URL = "http://localhost:3000/appointments";
+  const URL = "/appointments";
 
   const handleOnClick = (appointmentId) => {
     setId(appointmentId);

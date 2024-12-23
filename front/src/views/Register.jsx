@@ -1,7 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 const Register = () => {
+  const URL = "/users/register";
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("El nombre es requerido"),
     email: Yup.string()
@@ -13,7 +16,10 @@ const Register = () => {
   });
 
   const handleSubmit = (values) => {
-    alert(`Email: ${values.email}, Password: ${values.password}`);
+    axios.post(URL, values).then((response) => {
+      console.log(response.data);
+    })
+    console.log(values)
   };
 
   return (
