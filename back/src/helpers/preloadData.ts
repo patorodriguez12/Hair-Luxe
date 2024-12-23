@@ -4,7 +4,6 @@ import { userData } from "./userData";
 import AppointmentRepository from "../repositories/AppointmentRepository";
 import UserRepository from "../repositories/UserRepository";
 const bcrypt = require("bcrypt");
-
 const preloadUsers = userData;
 const preloadAppointments = appointmentData;
 

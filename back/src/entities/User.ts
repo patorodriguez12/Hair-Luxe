@@ -22,12 +22,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
-  birthdate: string;
-
-  @Column()
-  nDni: number;
-
   @OneToMany(() => Appointment, (appointment) => appointment.user)
   appointments: Appointment[];
 }

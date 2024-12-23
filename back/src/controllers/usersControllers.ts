@@ -24,15 +24,13 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password, birthdate, nDni } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const newUser: User = await registerUserService({
       name,
       email,
       password,
-      birthdate,
-      nDni,
     });
     res.status(201).json(newUser);
   } catch (error: any) {
@@ -50,9 +48,7 @@ export const loginUser = async (req: Request, res: Response) => {
       user: {
         id: user?.id,
         name: user?.name,
-        email: user?.email,
-        birthdate: user?.birthdate,
-        nDni: user?.nDni,
+        email: user?.email
       },
     });
   } catch (error: any) {
