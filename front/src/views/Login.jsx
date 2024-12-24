@@ -29,7 +29,7 @@ const Login = () => {
 
       if (response.data.login) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.location.href = "/";
+        window.location.href = "/my-appointments";
       } else {
         setErrors('Inicio de sesion fallido')
       }

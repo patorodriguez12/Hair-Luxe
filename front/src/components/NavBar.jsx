@@ -30,30 +30,20 @@ const NavBar = () => {
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6">
           <li>
-            <a href="#home" className="hover:text-gray-300">
+            <a href="/" className="hover:text-gray-300">
               Home
-            </a>
-          </li>
-          <li>
-            <a href="#features" className="hover:text-gray-300">
-              Features
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-gray-300">
-              Contact
             </a>
           </li>
           {isAuthenticated ? (
             <li>
-              <a href="#mis-turnos" className="hover:text-gray-300">
+              <a href="/my-appointments" className="hover:text-gray-300">
                 Mis Turnos
               </a>
             </li>
           ) : (
             <li>
-              <a href="/register" className="hover:text-gray-300">
-                Registrarse
+              <a href="/login" className="hover:text-gray-300">
+                Iniciar Sesión
               </a>
             </li>
           )}
@@ -92,30 +82,23 @@ const NavBar = () => {
           >
             <ul className="flex flex-col space-y-4 p-4">
               <li>
-                <a href="#home" className="block hover:text-blue-600">
+                <a href="/" className="block hover:text-blue-600">
                   Home
-                </a>
-              </li>
-              <li>
-                <a href="#features" className="block hover:text-blue-600">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="block hover:text-blue-600">
-                  Contact
                 </a>
               </li>
               {isAuthenticated ? (
                 <li>
-                  <a href="#mis-turnos" className="block hover:text-blue-600">
+                  <a
+                    href="/my-appointments"
+                    className="block hover:text-blue-600"
+                  >
                     Mis Turnos
                   </a>
                 </li>
               ) : (
                 <li>
-                  <a href="/register" className="block hover:text-blue-600">
-                    Registrarse
+                  <a href="/login" className="hover:text-gray-300">
+                    Iniciar Sesión
                   </a>
                 </li>
               )}
