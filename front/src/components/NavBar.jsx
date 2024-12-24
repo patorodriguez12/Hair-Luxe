@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,16 +34,16 @@ const NavBar = () => {
     <nav className="bg-blue-600 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <a href="/" className="text-lg font-bold">
-          MyApp
-        </a>
+        <Link to="/" className="text-lg font-bold">
+          Hair Luxe
+        </Link>
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6">
           <li>
-            <a href="/" className="hover:text-gray-300">
+            <Link to="/" className="hover:text-gray-300">
               Home
-            </a>
+            </Link>
           </li>
           {isAuthenticated ? (
             <li className="relative group">
@@ -52,20 +53,20 @@ const NavBar = () => {
               {/* Menú desplegable */}
               <ul className="absolute hidden group-hover:block bg-white text-gray-800 rounded-md shadow-lg mt-0 py-2 w-40">
                 <li>
-                  <a
-                    href="/profile"
+                  <Link
+                    to="/profile"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Ver Perfil
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/mis-turnos"
+                  <Link
+                    to="/my-appointments"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
                     Mis Turnos
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <button
@@ -79,9 +80,9 @@ const NavBar = () => {
             </li>
           ) : (
             <li>
-              <a href="/login" className="hover:text-gray-300">
+              <Link to="/login" className="hover:text-gray-300">
                 Iniciar sesion
-              </a>
+              </Link>
             </li>
           )}
         </ul>
@@ -125,18 +126,36 @@ const NavBar = () => {
               </li>
               {isAuthenticated ? (
                 <li>
-                  <a
-                    href="/my-appointments"
+                  <Link
+                    to="/profile"
                     className="block hover:text-blue-600"
+                    onClick={closeMenu}
+                  >
+                    Ver Perfil
+                  </Link>
+                  <Link
+                    to="/my-appointments"
+                    className="block hover:text-blue-600"
+                    onClick={closeMenu}
                   >
                     Mis Turnos
-                  </a>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="block hover:text-blue-600 text-left w-full"
+                  >
+                    Cerrar Sesión
+                  </button>
                 </li>
               ) : (
                 <li>
-                  <a href="/login" className="hover:text-gray-300">
+                  <Link
+                    to="/login"
+                    className="block hover:text-blue-600"
+                    onClick={closeMenu}
+                  >
                     Iniciar Sesión
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>

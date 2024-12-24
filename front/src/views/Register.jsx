@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const URL = "/users/register";
@@ -127,9 +128,9 @@ const Register = () => {
         {/* Link to login page */}
         <p className="text-sm text-gray-600 mt-4 text-center">
           Ya tienes una cuenta?{" "}
-          <a href="/login" className="text-green-500 hover:underline">
+          <Link to="/login" className="text-green-500 hover:underline">
             Inicia sesion
-          </a>
+          </Link>
         </p>
       </div>
     </div>

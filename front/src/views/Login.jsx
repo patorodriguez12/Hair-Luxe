@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [errors, setErrors] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
       .required("Contraseña requerida"),
   });
 
-  const handleSubmit = async (values, {resetForm}) => {
+  const handleSubmit = async (values, { resetForm }) => {
     setLoading(true);
     setErrors("");
 
@@ -25,18 +26,18 @@ const Login = () => {
       const response = await axios.post(URL, {
         email: values.email,
         password: values.password,
-      })
+      });
 
       if (response.data.login) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         window.location.href = "/my-appointments";
       } else {
-        setErrors('Inicio de sesion fallido')
+        setErrors("Inicio de sesion fallido");
       }
 
       resetForm();
     } catch (error) {
-      setErrors('Inicio de sesion fallido')
+      setErrors("Inicio de sesion fallido");
     } finally {
       setLoading(false);
     }
@@ -123,9 +124,9 @@ const Login = () => {
         {/* Register link */}
         <p className="text-sm text-gray-600 mt-4 text-center">
           ¿No tienes una cuenta?{" "}
-          <a href="/register" className="text-blue-500 hover:underline">
+          <Link to="/register" className="text-blue-500 hover:underline">
             Regístrate
-          </a>
+          </Link>
         </p>
       </div>
     </div>
