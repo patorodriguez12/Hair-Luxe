@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
 import AppointmentDetail from "../components/AppointmentDetail";
-import axios from "axios";
 
 const MyAppointments = () => {
-  const [appointments, setAppointments] = useState([]);
   const [detail, setDetail] = useState(false);
   const [id, setId] = useState(null);
-  const URL = "/appointments";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const appointments = user.appointments;
 
   const handleOnClick = (appointmentId) => {
     setId(appointmentId);
@@ -17,13 +16,6 @@ const MyAppointments = () => {
   const handleOnClose = () => {
     setDetail(false);
   };
-
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then((response) => setAppointments(response.data))
-      .catch((error) => console.error("Error fetching appointments:", error));
-  }, []);
 
   return (
     <div
@@ -50,7 +42,7 @@ const MyAppointments = () => {
             <p className="text-lg text-gray-600">No tienes turnos agendados.</p>
             <button
               className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
-              onClick={() => alert("Agendar un turno")} // Ajusta según tu lógica
+              onClick={() => alert("Agendar un turno")}
             >
               Agendar un Turno
             </button>

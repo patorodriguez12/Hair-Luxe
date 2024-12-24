@@ -1,23 +1,8 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
-  const [appointment, setAppointment] = useState(null);
-  const URL = "/appointments";
-
-  useEffect(() => {
-    axios
-      .get(`${URL}/${id}`)
-      .then((response) => setAppointment(response.data))
-      .catch((error) => console.error("Error fetching appointment:", error));
-  }, [id]);
-
-  if (!appointment) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(appointment.user.name);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const appointments = user.appointments.find((appointment) => appointment.id === id);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
@@ -52,23 +37,23 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
           {/* Appointment Info */}
           <div className="mb-6">
             <p className="text-lg mb-2">
-              <strong className="text-gray-700">📅 Fecha:</strong>{" "}
-              {appointment.date}
+              <strong className="text-gray-700">Fecha:</strong>{" "}
+              {appointments.date}
             </p>
             <p className="text-lg mb-2">
-              <strong className="text-gray-700">⏰ Hora:</strong>{" "}
-              {appointment.time}
+              <strong className="text-gray-700">Hora:</strong>{" "}
+              {appointments.time}
             </p>
             <p className="text-lg">
               <strong className="text-gray-700">Estado:</strong>{" "}
               <span
                 className={`px-2 py-1 rounded-full text-sm ${
-                  appointment.status === "active"
+                  appointments.status === "active"
                     ? "bg-green-100 text-green-700"
                     : "bg-yellow-100 text-yellow-700"
                 }`}
               >
-                {appointment.status === "active" ? "Activo" : "Pendiente"}
+                {appointments.status === "active" ? "Activo" : "Pendiente"}
               </span>
             </p>
           </div>
@@ -76,15 +61,13 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
           {/* User info */}
           <div className="border-t pt-4">
             <h3 className="text-xl font-semibold text-gray-800 mb-3">
-              Información del Usuario
+              Informacion del Usuario
             </h3>
             <p className="text-lg mb-2">
-              <strong className="text-gray-700">Nombre:</strong>{" "}
-              {appointment.user.name}
+              <strong className="text-gray-700">Nombre:</strong> {user.name}
             </p>
             <p className="text-lg mb-2">
-              <strong className="text-gray-700">Email:</strong>{" "}
-              {appointment.user.email}
+              <strong className="text-gray-700">Email:</strong> {user.email}
             </p>
           </div>
         </div>
