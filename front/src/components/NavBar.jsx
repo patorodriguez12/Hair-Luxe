@@ -106,6 +106,19 @@ const NavBar = () => {
                   Contact
                 </a>
               </li>
+              {isAuthenticated ? (
+                <li>
+                  <a href="#mis-turnos" className="block hover:text-blue-600">
+                    Mis Turnos
+                  </a>
+                </li>
+              ) : (
+                <li>
+                  <a href="/register" className="block hover:text-blue-600">
+                    Registrarse
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 
