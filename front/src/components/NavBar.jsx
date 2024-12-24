@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,10 +15,19 @@ const NavBar = () => {
 
   useEffect(() => {
     const user = localStorage.getItem("user");
+    setUser(JSON.parse(user));
     if (user) {
       setIsAuthenticated(true);
+      setUser(JSON.parse(user));
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
+    setUser(null);
+    window.location.href = "/login";
+  };
 
   return (
     <nav className="bg-blue-600 text-white">
@@ -35,15 +45,42 @@ const NavBar = () => {
             </a>
           </li>
           {isAuthenticated ? (
-            <li>
-              <a href="/my-appointments" className="hover:text-gray-300">
-                Mis Turnos
-              </a>
+            <li className="relative group">
+              <button className="hover:text-gray-300">
+                {user?.name || "Usuario"}
+              </button>
+              {/* Menú desplegable */}
+              <ul className="absolute hidden group-hover:block bg-white text-gray-800 rounded-md shadow-lg mt-0 py-2 w-40">
+                <li>
+                  <a
+                    href="/profile"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    Ver Perfil
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/mis-turnos"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    Mis Turnos
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="block px-4 py-2 hover:bg-gray-100 text-left w-full"
+                  >
+                    Cerrar Sesión
+                  </button>
+                </li>
+              </ul>
             </li>
           ) : (
             <li>
               <a href="/login" className="hover:text-gray-300">
-                Iniciar Sesión
+                Iniciar sesion
               </a>
             </li>
           )}
