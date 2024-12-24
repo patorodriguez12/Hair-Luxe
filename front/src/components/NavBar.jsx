@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -11,17 +12,51 @@ const NavBar = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   return (
     <nav className="bg-blue-600 text-white">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <a href="/" className="text-lg font-bold">MyApp</a>
+        <a href="/" className="text-lg font-bold">
+          MyApp
+        </a>
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6">
-          <li><a href="#home" className="hover:text-gray-300">Home</a></li>
-          <li><a href="#features" className="hover:text-gray-300">Features</a></li>
-          <li><a href="#contact" className="hover:text-gray-300">Contact</a></li>
+          <li>
+            <a href="#home" className="hover:text-gray-300">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#features" className="hover:text-gray-300">
+              Features
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-gray-300">
+              Contact
+            </a>
+          </li>
+          {isAuthenticated ? (
+            <li>
+              <a href="#mis-turnos" className="hover:text-gray-300">
+                Mis Turnos
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a href="/register" className="hover:text-gray-300">
+                Registrarse
+              </a>
+            </li>
+          )}
         </ul>
 
         {/* Mobile Menu Button */}
@@ -36,7 +71,12 @@ const NavBar = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       </div>
@@ -51,9 +91,21 @@ const NavBar = () => {
             onClick={closeMenu}
           >
             <ul className="flex flex-col space-y-4 p-4">
-              <li><a href="#home" className="block hover:text-blue-600">Home</a></li>
-              <li><a href="#features" className="block hover:text-blue-600">Features</a></li>
-              <li><a href="#contact" className="block hover:text-blue-600">Contact</a></li>
+              <li>
+                <a href="#home" className="block hover:text-blue-600">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="#features" className="block hover:text-blue-600">
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="block hover:text-blue-600">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
