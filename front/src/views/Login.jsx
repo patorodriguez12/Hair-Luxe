@@ -1,7 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { useState } from "react";
 
 const Login = () => {
+  const [errors, setErrors] = useState("");
+  const [loading, setLoading] = useState(false);
+  const URL = "/users/login";
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Correo electrónico inválido")
@@ -11,9 +17,29 @@ const Login = () => {
       .required("Contraseña requerida"),
   });
 
-  const handleSubmit = (values) => {
-    alert(`Email: ${values.email}, Password: ${values.password}`);
-    // axios request to login the user
+  const handleSubmit = async (values, {resetForm}) => {
+    setLoading(true);
+    setErrors("");
+
+    try {
+      const response = await axios.post(URL, {
+        email: values.email,
+        password: values.password,
+      })
+
+      if (response.data.login) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        window.location.href = "/";
+      } else {
+        setErrors('Inicio de sesion fallido')
+      }
+
+      resetForm();
+    } catch (error) {
+      setErrors('Inicio de sesion fallido')
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,7 +114,7 @@ const Login = () => {
                 }`}
                 disabled={!isValid}
               >
-                Iniciar sesión
+                {loading ? "Cargando..." : "Iniciar sesión"}
               </button>
             </Form>
           )}
