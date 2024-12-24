@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
   const [appointment, setAppointment] = useState(null);
-  const URL = "http://localhost:3000/appointments";
+  const URL = "/appointments";
 
   useEffect(() => {
     axios
@@ -85,14 +85,6 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
             <p className="text-lg mb-2">
               <strong className="text-gray-700">Email:</strong>{" "}
               {appointment.user.email}
-            </p>
-            <p className="text-lg mb-2">
-              <strong className="text-gray-700">Fecha de Nacimiento:</strong>{" "}
-              {appointment.user.birthdate}
-            </p>
-            <p className="text-lg">
-              <strong className="text-gray-700">DNI:</strong>{" "}
-              {appointment.user.nDni}
             </p>
           </div>
         </div>
