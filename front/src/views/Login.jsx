@@ -1,12 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast, Bounce } from "react-toastify";
 
 const Login = () => {
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const URL = "/users/login";
 
   const validationSchema = Yup.object().shape({
@@ -30,14 +33,43 @@ const Login = () => {
 
       if (response.data.login) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.location.href = "/my-appointments";
+        toast.success(
+          `Bienvenido ${response.data.user.name} a HairLuxe, redireccionando...`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          }
+        );
+        resetForm();
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
       } else {
         setErrors("Inicio de sesion fallido");
+        toast.error("Inicio de sesión fallido");
       }
 
       resetForm();
     } catch (error) {
-      setErrors("Inicio de sesion fallido");
+      setErrors(error.response.data.error);
+      toast.error(error.response.data.error, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     } finally {
       setLoading(false);
     }
