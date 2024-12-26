@@ -11,6 +11,7 @@ import {
   getAppointments,
   scheduleAppointment,
 } from "../controllers/appointmentsControllers";
+import { getServices, getServiceById, createService } from "../controllers/servicesController";
 const router = Router();
 
 // users routes
@@ -24,5 +25,10 @@ router.get("/appointments", getAppointments);
 router.get("/appointments/:id", getAppointmentById);
 router.post("/appointments/schedule", scheduleAppointment);
 router.put("/appointments/cancel/:id", cancelAppointment);
+
+// services routes
+router.get("/services", getServices);
+router.get("/services/:id", getServiceById);
+router.post("/services", createService);
 
 export default router;
