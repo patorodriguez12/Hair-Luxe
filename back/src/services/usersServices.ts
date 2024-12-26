@@ -56,7 +56,7 @@ export const loginUserService = async (
   // search user by email
   const user = await UserRepository.findOne({
     where: { email: email },
-    relations: ["appointments"],
+    relations: ["appointments", "appointments.service"],
   });
 
   // if user not found, throw error

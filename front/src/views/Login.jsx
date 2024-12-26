@@ -2,14 +2,16 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { toast, Bounce } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setCurrentUser } = useContext(AuthContext);
   const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+
   const URL = "/users/login";
 
   const validationSchema = Yup.object().shape({
@@ -31,45 +33,12 @@ const Login = () => {
         password: values.password,
       });
 
-      if (response.data.login) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        toast.success(
-          `Bienvenido ${response.data.user.name} a HairLuxe, redireccionando...`,
-          {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-          }
-        );
-        resetForm();
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
-      } else {
-        setErrors("Inicio de sesion fallido");
-        toast.error("Inicio de sesión fallido");
-      }
-
+      setCurrentUser(response.data.user);
       resetForm();
+      navigate("/");
+      console.log(response.data.user);
     } catch (error) {
-      setErrors(error.response.data.error);
-      toast.error(error.response.data.error, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-      });
+      setErrors(error.response.data.message);
     } finally {
       setLoading(false);
     }

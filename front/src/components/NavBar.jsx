@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,160 +16,127 @@ const NavBar = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    setUser(JSON.parse(user));
-    if (user) {
-      setIsAuthenticated(true);
-      setUser(JSON.parse(user));
-    }
-  }, []);
+  const toggleUserMenu = () => {
+    setUserMenuOpen(!userMenuOpen);
+  };
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setIsAuthenticated(false);
-    setUser(null);
-    window.location.href = "/login";
+    setCurrentUser(null);
+    navigate("/login");
   };
 
   return (
-    <nav className="bg-blue-600 text-white">
+    <nav className="bg-blue-600 text-white shadow-md z-50 relative">
       <div className="container mx-auto flex justify-between items-center p-4">
-        {/* Logo */}
-        <Link to="/" className="text-lg font-bold">
-          Hair Luxe
-        </Link>
-
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex space-x-6">
+        <div className="flex items-center">
+          <button
+            onClick={toggleMenu}
+            className="text-white focus:outline-none md:hidden"
+          >
+            {isOpen ? (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            )}
+          </button>
+          <Link to="/" className="text-2xl font-bold ml-4">
+            Hair Luxe
+          </Link>
+        </div>
+        <ul
+          className={`md:flex md:items-center md:space-x-6 ${
+            isOpen ? "block" : "hidden"
+          } md:block`}
+        >
           <li>
-            <Link to="/" className="hover:text-gray-300">
+            <Link
+              to="/"
+              onClick={closeMenu}
+              className="block px-4 py-2 hover:bg-blue-700 rounded-md"
+            >
               Home
             </Link>
           </li>
-          {isAuthenticated ? (
-            <li className="relative group">
-              <button className="hover:text-gray-300">
-                {user?.name || "Usuario"}
-              </button>
-              {/* Menú desplegable */}
-              <ul className="absolute hidden group-hover:block bg-white text-gray-800 rounded-md shadow-lg mt-0 py-2 w-40">
-                <li>
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Ver Perfil
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/my-appointments"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Mis Turnos
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="block px-4 py-2 hover:bg-gray-100 text-left w-full"
-                  >
-                    Cerrar Sesión
-                  </button>
-                </li>
-              </ul>
-            </li>
+          {currentUser ? (
+            <>
+              <li className="relative">
+                <button
+                  onClick={toggleUserMenu}
+                  className="block px-4 py-2 hover:bg-blue-700 rounded-md"
+                >
+                  Bienvenido, {currentUser.name}
+                </button>
+                {userMenuOpen && (
+                  <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg">
+                    <li>
+                      <Link
+                        to="/profile"
+                        onClick={closeMenu}
+                        className="block px-4 py-2 hover:bg-blue-700 rounded-md"
+                      >
+                        Ver Perfil
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/my-appointments"
+                        onClick={closeMenu}
+                        className="block px-4 py-2 hover:bg-blue-700 rounded-md"
+                      >
+                        Mis Turnos
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="block px-4 py-2 hover:bg-blue-700 rounded-md w-full text-left"
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            </>
           ) : (
             <li>
-              <Link to="/login" className="hover:text-gray-300">
-                Iniciar sesion
+              <Link
+                to="/login"
+                onClick={closeMenu}
+                className="block px-4 py-2 hover:bg-blue-700 rounded-md"
+              >
+                Login
               </Link>
             </li>
           )}
         </ul>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-white focus:outline-none"
-          onClick={toggleMenu}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
       </div>
-
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="relative md:hidden">
-          <div
-            className={`absolute top-16 right-0 w-48 bg-white text-gray-800 rounded-md shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
-              isOpen ? "translate-y-0" : "-translate-y-8"
-            }`}
-            onClick={closeMenu}
-          >
-            <ul className="flex flex-col space-y-4 p-4">
-              <li>
-                <a href="/" className="block hover:text-blue-600">
-                  Home
-                </a>
-              </li>
-              {isAuthenticated ? (
-                <li>
-                  <Link
-                    to="/profile"
-                    className="block hover:text-blue-600"
-                    onClick={closeMenu}
-                  >
-                    Ver Perfil
-                  </Link>
-                  <Link
-                    to="/my-appointments"
-                    className="block hover:text-blue-600"
-                    onClick={closeMenu}
-                  >
-                    Mis Turnos
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block hover:text-blue-600 text-left w-full"
-                  >
-                    Cerrar Sesión
-                  </button>
-                </li>
-              ) : (
-                <li>
-                  <Link
-                    to="/login"
-                    className="block hover:text-blue-600"
-                    onClick={closeMenu}
-                  >
-                    Iniciar Sesión
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          {/* Background Overlay */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            onClick={closeMenu}
-          ></div>
-        </div>
-      )}
     </nav>
   );
 };
