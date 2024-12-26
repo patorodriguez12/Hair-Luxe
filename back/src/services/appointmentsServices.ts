@@ -16,7 +16,7 @@ export const getAppointmentByIdService = async (
 ): Promise<Appointment | null> => {
   const appointment = AppointmentRepository.findOne({
     where: { id },
-    relations: ["user"],
+    relations: ["user", "service"],
   });
   return appointment;
 };
