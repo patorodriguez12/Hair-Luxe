@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 // GET ALL USERS SERVICE
 export const getUsersService = async (): Promise<User[]> => {
-  const users = await UserRepository.find({ relations: ["appointments"] });
+  const users = await UserRepository.find({ relations: ["appointments", "appointments.service"] });
   return users;
 };
 
@@ -14,7 +14,7 @@ export const getUserByIdService = async (id: number): Promise<User | null> => {
   // find user by id with appointments relation
   const user = await UserRepository.findOne({
     where: { id },
-    relations: ["appointments"],
+    relations: ["appointments", "appointments.service"],
   });
 
   // check if the id exists
