@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getUsers, getUserById, loginUser, registerUser } from "../controllers/usersControllers";
 import { getAppointmentById, getAppointments, scheduleAppointment, cancelAppointment } from "../controllers/appointmentsControllers";
 import { getServices, getServiceById, createService } from "../controllers/servicesController";
-import { authMiddleware } from "../middleware/AuthMiddleware";
+import { authMiddleware } from "../middleware/authMiddleware";
 
 const router = Router();
 
