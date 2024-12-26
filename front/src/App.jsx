@@ -1,19 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Home from "./views/Home";
 import MyAppointments from "./views/MyAppointments";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import NotFound from "./components/NotFound";
-import { useLocation } from "react-router-dom";
+import NotFound from "./views/NotFound";
 
 function App() {
   const location = useLocation();
 
   return (
     <div className="flex flex-col min-h-screen">
-
       {/* Navbar with conditional rendering */}
       {location.pathname === "/login" ||
       location.pathname === "/register" ? null : (
