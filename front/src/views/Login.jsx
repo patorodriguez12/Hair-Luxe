@@ -49,7 +49,7 @@ const Login = () => {
         );
         resetForm();
         setTimeout(() => {
-          window.location.href = "/";
+          navigate("/");
         }, 3000);
       } else {
         setErrors("Inicio de sesion fallido");
