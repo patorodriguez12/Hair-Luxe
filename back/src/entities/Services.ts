@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Appointment } from "./Appointment";
 
 @Entity({
     name: "services",
@@ -15,4 +16,7 @@ export class Service {
 
     @Column()
     price: number;
+
+    @OneToOne(() => Appointment, (appointment) => appointment.service)
+    appointment: Appointment
 }
