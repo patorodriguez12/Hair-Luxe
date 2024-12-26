@@ -2,6 +2,7 @@ import AppointmentsDto from "../dto/AppointmentsDto";
 import { Appointment } from "../entities/Appointment";
 import AppointmentRepository from "../repositories/AppointmentRepository";
 import UserRepository from "../repositories/UserRepository";
+import ServiceRepository from "../repositories/ServiceRepository";
 
 export const getAppointmentsService = async (): Promise<Appointment[]> => {
   const appointments = await AppointmentRepository.find({
@@ -22,6 +23,7 @@ export const getAppointmentByIdService = async (
 
 export const scheduleAppointmentService = async (
   userId: number,
+  serviceId: number,
   appointmentData: AppointmentsDto
 ) => {
   const user = await UserRepository.findOneBy({
@@ -32,9 +34,15 @@ export const scheduleAppointmentService = async (
     throw new Error("User not found");
   }
 
+  const service = await ServiceRepository.findOneBy({ id: serviceId });
+  if (!service) {
+    throw new Error("Service not found");
+  }
+
   const newAppointment = AppointmentRepository.create({
     ...appointmentData,
     user,
+    service,
   });
 
   const result = AppointmentRepository.save(newAppointment);

@@ -21,10 +21,10 @@ export const getAppointmentById = async (req: Request, res: Response) => {
 };
 
 export const scheduleAppointment = async (req: Request, res: Response) => {
-  const { userId, date, time } = req.body;
+  const { userId, serviceId, date, time } = req.body;
 
   try {
-    const newAppointment = await scheduleAppointmentService(userId, {
+    const newAppointment = await scheduleAppointmentService(userId, serviceId, {
       date,
       time,
       status: "active",
