@@ -5,6 +5,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User";
 import { Service } from "./Services";
@@ -28,7 +29,7 @@ export class Appointment {
   @ManyToOne(() => User, (user) => user.appointments, { onDelete: "CASCADE" })
   user: User;
 
-  @OneToOne(() => Service, (service) => service.appointment, {
+  @ManyToOne(() => Service, (service) => service.appointments, {
     onDelete: "CASCADE",
   })
   @JoinColumn()

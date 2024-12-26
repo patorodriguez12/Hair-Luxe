@@ -1,22 +1,22 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Appointment } from "./Appointment";
 
 @Entity({
-    name: "services",
+  name: "services",
 })
 export class Service {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @Column()
-    price: number;
+  @Column()
+  price: number;
 
-    @OneToOne(() => Appointment, (appointment) => appointment.service)
-    appointment: Appointment
+  @OneToMany(() => Appointment, (appointment) => appointment.service)
+  appointments: Appointment[];
 }
