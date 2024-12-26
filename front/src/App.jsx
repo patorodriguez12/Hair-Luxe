@@ -5,12 +5,22 @@ import Home from "./views/Home";
 import MyAppointments from "./views/MyAppointments";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import NotFound from "./components/NotFound"
+import NotFound from "./components/NotFound";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar />
+
+      {/* Navbar with conditional rendering */}
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ? null : (
+        <NavBar />
+      )}
+
+      {/* Content */}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -20,7 +30,12 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
+
+      {/* Footer with conditional rendering */}
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ? null : (
+        <Footer />
+      )}
     </div>
   );
 }
