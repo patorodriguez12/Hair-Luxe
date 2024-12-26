@@ -1,11 +1,12 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
 
 const NavBar = () => {
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -22,6 +23,8 @@ const NavBar = () => {
 
   const handleLogout = () => {
     setCurrentUser(null);
+    Cookies.remove("currentUser");
+    Cookies.remove("token");
     navigate("/login");
   };
 

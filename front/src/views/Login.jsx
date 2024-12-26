@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Login = () => {
       .required("Contraseña requerida"),
   });
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (values) => {
     setLoading(true);
 
     try {
@@ -30,12 +31,13 @@ const Login = () => {
         email: values.email,
         password: values.password,
       });
-
-      setCurrentUser(response.data.user);
-      resetForm();
+      const { user, token } = response.data;
+      setCurrentUser(user);
+      Cookies.set("token", token, { expires: 7 });
       navigate("/");
+
     } catch (error) {
-      console.error("Error al iniciar sesión", error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

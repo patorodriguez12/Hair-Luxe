@@ -42,17 +42,9 @@ export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const user: User | null = await loginUserService(email, password);
-    res.status(200).json({
-      login: true,
-      user: {
-        id: user?.id,
-        name: user?.name,
-        email: user?.email,
-        appointments: user?.appointments
-      },
-    });
+    const result = await loginUserService(email, password);
+    res.status(200).json(result);
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };

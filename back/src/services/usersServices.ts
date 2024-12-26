@@ -2,10 +2,15 @@ import UserRepository from "../repositories/UserRepository";
 import UserDto from "../dto/UserDto";
 import { User } from "../entities/User";
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
 // GET ALL USERS SERVICE
 export const getUsersService = async (): Promise<User[]> => {
-  const users = await UserRepository.find({ relations: ["appointments", "appointments.service"] });
+  const users = await UserRepository.find({
+    relations: ["appointments", "appointments.service"],
+  });
   return users;
 };
 
@@ -52,7 +57,7 @@ export const registerUserService = async (userData: UserDto) => {
 export const loginUserService = async (
   email: string,
   password: string
-): Promise<User | null> => {
+): Promise<{ user: User; token: string } | null> => {
   // search user by email
   const user = await UserRepository.findOne({
     where: { email: email },
@@ -61,16 +66,19 @@ export const loginUserService = async (
 
   // if user not found, throw error
   if (!user) {
-    throw new Error(`User with email ${email} does not exists.`);
+    throw new Error(`User with email ${email} does not exist.`);
   }
 
-  // check if password is correct
+  // compare password
   const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  // if password is incorrect, throw error
   if (!isPasswordValid) {
-    throw new Error("Incorrect password");
+    throw new Error("Invalid password.");
   }
 
-  return user;
+  // generate JWT token
+  const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  return { user, token };
 };
