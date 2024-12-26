@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
 import AppointmentDetail from "../components/AppointmentDetail";
+import { AuthContext } from "../context/AuthContext";
 
 const MyAppointments = () => {
   const [detail, setDetail] = useState(false);
   const [id, setId] = useState(null);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const appointments = user.appointments;
+  const { currentUser } = useContext(AuthContext);
+  const appointments = currentUser.appointments;
 
   const handleOnClick = (appointmentId) => {
     setId(appointmentId);

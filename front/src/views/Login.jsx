@@ -9,7 +9,6 @@ import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useContext(AuthContext);
-  const [errors, setErrors] = useState("");
   const [loading, setLoading] = useState(false);
 
   const URL = "/users/login";
@@ -25,7 +24,6 @@ const Login = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     setLoading(true);
-    setErrors("");
 
     try {
       const response = await axios.post(URL, {
@@ -36,9 +34,8 @@ const Login = () => {
       setCurrentUser(response.data.user);
       resetForm();
       navigate("/");
-      console.log(response.data.user);
     } catch (error) {
-      setErrors(error.response.data.message);
+      console.error("Error al iniciar sesión", error);
     } finally {
       setLoading(false);
     }
