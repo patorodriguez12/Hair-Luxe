@@ -20,7 +20,7 @@ function App() {
       )}
 
       {/* Content */}
-      <main className="flex-grow">
+      <main className="flex-grow overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
