@@ -1,30 +1,12 @@
 import { Link } from "react-router-dom";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (
     <div id="home" className="bg-gray-100 text-gray-800">
-      <div
-        className="relative bg-cover bg-center h-[500px]"
-        style={{
-          backgroundImage: `url("../src/assets/hero.jpg")`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
-          <h1 className="text-4xl sm:text-6xl font-bold mb-4">
-            Bienvenido a Hair Luxe
-          </h1>
-          <p className="text-lg sm:text-xl mb-6">
-            Donde el estilo y la calidad se encuentran
-          </p>
-          <Link
-            to="/schedule"
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg text-lg"
-          >
-            Reserva tu Turno
-          </Link>
-        </div>
-      </div>
-
+      {/* Hero Section */}
+      <Hero />
+      
       {/* Services Section */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 sm:px-12">
