@@ -4,16 +4,21 @@ import * as Yup from "yup";
 import axios from "axios";
 import { AppointmentsContext } from "../context/AppointmentsContext";
 import { AuthContext } from "../context/AuthContext";
+import { ServicesContext } from "../context/ServicesContext";
 import Cookies from "js-cookie";
 
 const AppointmentSchedule = () => {
   const { appointments, setAppointments } = useContext(AppointmentsContext);
   const { currentUser } = useContext(AuthContext);
+  const { services } = useContext(ServicesContext);
   const [error, setError] = useState(null);
+
+  console.log(services);
 
   const today = new Date().toISOString().split("T")[0];
 
   const validationSchema = Yup.object().shape({
+    service: Yup.string().required("Servicio requerido"),
     date: Yup.date().required("Fecha requerida"),
     time: Yup.string().required("Hora requerida"),
   });
@@ -37,8 +42,6 @@ const AppointmentSchedule = () => {
     fetchAppointments();
   }, [setAppointments]);
 
-  console.log(appointments);
-
   const handleSubmit = async (values, { resetForm }) => {
     const token = Cookies.get("token");
 
@@ -47,6 +50,7 @@ const AppointmentSchedule = () => {
         "/appointments/schedule",
         {
           userId: currentUser.id,
+          serviceId: values.service,
           date: values.date,
           time: values.time,
         },
@@ -89,12 +93,37 @@ const AppointmentSchedule = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">Agendar Turno</h1>
       <Formik
-        initialValues={{ date: "", time: "" }}
+        initialValues={{ service: "", date: "", time: "" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, values }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="service"
+              >
+                Servicio
+              </label>
+              <Field
+                as="select"
+                name="service"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Seleccione un servicio</option>
+                {services.map((service) => (
+                  <option key={service.id} value={service.id}>
+                    {service.name}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="service"
+                component="div"
+                className="text-red-500 text-xs italic"
+              />
+            </div>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
