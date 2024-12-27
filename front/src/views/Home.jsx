@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <div id="home" className="bg-gray-100 text-gray-800">
@@ -14,9 +16,12 @@ const Home = () => {
           <p className="text-lg sm:text-xl mb-6">
             Donde el estilo y la calidad se encuentran
           </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg text-lg">
+          <Link
+            to="/schedule"
+            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg text-lg"
+          >
             Reserva tu Turno
-          </button>
+          </Link>
         </div>
       </div>
 

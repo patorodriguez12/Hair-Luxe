@@ -90,7 +90,7 @@ const MyAppointments = () => {
                 <AppointmentCard
                   key={appointment.id}
                   appointment={appointment}
-                  onClick={() => handleOnClick(appointment.id)}
+                  handleOnClick={handleOnClick}
                 />
               ))}
             </div>
