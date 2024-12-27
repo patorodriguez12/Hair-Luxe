@@ -3,13 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
 import { FaScissors } from "react-icons/fa6";
+import { FaUserCircle, FaChevronDown } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import { motion } from "framer-motion";
 import NavBarMenu from "./NavBarMenu";
+import NavBarUserMenu from "./NavBarUserMenu";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -18,6 +21,10 @@ const NavBar = () => {
 
   const closeMenu = () => {
     setIsOpen(false);
+  };
+
+  const toggleUserMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   const handleLogout = () => {
@@ -78,21 +85,17 @@ const NavBar = () => {
 
             {/* CTA button section */}
             {currentUser ? (
-              <div className="hidden lg:block space-x-6">
-                <Link
-                  to="/appointments"
-                  className="text-white bg-tertiary font-semibold rounded-full px-6 py-2"
-                >
-                  Mis turnos
-                </Link>
-                <Link
-                  to="/"
-                  className="text-white bg-tertiary font-semibold rounded-full px-6 py-2"
-                  onClick={handleLogout}
-                >
-                  Cerrar sesion
-                </Link>
-              </div>
+               <div className="hidden lg:block relative">
+               <div
+                 className="flex items-center gap-2 cursor-pointer"
+                 onClick={toggleUserMenu}
+               >
+                 <FaUserCircle className="text-3xl text-quaternary" />
+                 <span>{currentUser.forename}</span>
+                 <FaChevronDown className={`text-quaternary transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
+               </div>
+               <NavBarUserMenu isOpen={menuOpen} handleLogout={handleLogout} />
+             </div>
             ) : (
               <div className="hidden lg:block space-x-6">
                 <Link to="/login" className="font-semibold">

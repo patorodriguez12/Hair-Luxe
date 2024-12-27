@@ -1,8 +1,12 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
-const NavBarMenu = ({ isOpen }) => {
+const NavBarMenu = ({ isOpen, handleLogout }) => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
@@ -24,6 +28,20 @@ const NavBarMenu = ({ isOpen }) => {
               <li>
                 <Link to="/contact">Contacto</Link>
               </li>
+              {currentUser && (
+                <>
+                  <hr className="w-3/4 border-t border-gray-500" />
+                  <li>
+                    <Link to="/profile">Mi Perfil</Link>
+                  </li>
+                  <li>
+                    <Link to="/my-appointments">Mis Turnos</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout}>Cerrar Sesión</button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </motion.div>
@@ -34,6 +52,7 @@ const NavBarMenu = ({ isOpen }) => {
 
 NavBarMenu.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default NavBarMenu;
