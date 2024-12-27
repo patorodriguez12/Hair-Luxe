@@ -12,6 +12,8 @@ const MyAppointments = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const appointmentsPerPage = 4;
 
   useEffect(() => {
     const fetchUserAppointments = async () => {
@@ -53,6 +55,24 @@ const MyAppointments = () => {
     setDetail(false);
   };
 
+  const indexOfLastAppointment = currentPage * appointmentsPerPage;
+  const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
+  const currentAppointments = appointments.slice(
+    indexOfFirstAppointment,
+    indexOfLastAppointment
+  );
+
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i <= Math.ceil(appointments.length / appointmentsPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div
       id="home"
@@ -64,37 +84,52 @@ const MyAppointments = () => {
         </h1>
 
         {appointments.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {appointments.map((appointment) => (
-              <AppointmentCard
-                key={appointment.id}
-                appointment={appointment}
-                handleOnClick={handleOnClick}
-              />
-            ))}
-            <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4">
-              <Link
-                to="/schedule"
-                className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
-              >
-                Agendar un Turno
-              </Link>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {currentAppointments.map((appointment) => (
+                <AppointmentCard
+                  key={appointment.id}
+                  appointment={appointment}
+                  onClick={() => handleOnClick(appointment.id)}
+                />
+              ))}
             </div>
-          </div>
+            <div className="flex justify-center mt-6">
+              <nav>
+                <ul className="flex list-none">
+                  {pageNumbers.map((number) => (
+                    <li key={number} className="mx-1">
+                      <button
+                        onClick={() => paginate(number)}
+                        className={`px-3 py-1 rounded ${
+                          currentPage === number
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-blue-500 border border-blue-500"
+                        }`}
+                      >
+                        {number}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </>
         ) : (
-          <div className="text-center py-20">
-            <p className="text-lg text-gray-600">No tienes turnos agendados.</p>
+          <div className="text-center">
+            <p className="text-2xl font-bold mb-4">
+              No tienes turnos agendados.
+            </p>
             <Link
               to="/schedule"
-              className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+              className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
             >
               Agendar un Turno
             </Link>
           </div>
         )}
-
-        {detail && <AppointmentDetail handleOnClose={handleOnClose} id={id} />}
       </div>
+      {detail && <AppointmentDetail handleOnClose={handleOnClose} id={id} />}
     </div>
   );
 };
