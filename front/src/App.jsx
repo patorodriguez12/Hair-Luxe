@@ -5,6 +5,7 @@ import Home from "./views/Home";
 import MyAppointments from "./views/MyAppointments";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import AppointmentSchedule from "./components/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/my-appointments" element={<MyAppointments />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/schedule" element={<AppointmentSchedule />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
