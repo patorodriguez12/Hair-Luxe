@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import AppointmentCard from "../components/AppointmentCard";
 import AppointmentDetail from "../components/AppointmentDetail";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const MyAppointments = () => {
   const [detail, setDetail] = useState(false);
@@ -37,16 +38,24 @@ const MyAppointments = () => {
                 handleOnClick={handleOnClick}
               />
             ))}
+            <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4">
+              <Link
+                to="/schedule"
+                className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+              >
+                Agendar un Turno
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="text-center py-20">
             <p className="text-lg text-gray-600">No tienes turnos agendados.</p>
-            <button
+            <Link
+              to="/schedule"
               className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
-              onClick={() => alert("Agendar un turno")}
             >
               Agendar un Turno
-            </button>
+            </Link>
           </div>
         )}
 
