@@ -9,7 +9,7 @@ const NavBarBanner = () => {
         className="bg-tertiary text-sm text-center font-semibold p-1 hidden lg:block relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
         Te cuesta confiar en nuevos estilistas? En Hair Luxe contamos con un
         equipo de profesionales altamente capacitados para brindarte un servicio
