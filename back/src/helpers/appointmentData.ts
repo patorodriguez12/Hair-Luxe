@@ -2,7 +2,7 @@ export const appointmentData = [
   {
     date: "2024-12-27",
     time: "08:00",
-    status: "active",
+    status: "cancelled",
     userId: 1,
     serviceId: 1,
   },

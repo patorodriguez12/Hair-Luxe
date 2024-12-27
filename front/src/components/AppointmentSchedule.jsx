@@ -67,7 +67,10 @@ const AppointmentSchedule = () => {
 
   const isTimeSlotAvailable = (date, time) => {
     return !appointments.some(
-      (appointment) => appointment.date === date && appointment.time === time
+      (appointment) =>
+        appointment.date === date &&
+        appointment.time === time &&
+        appointment.status === "active"
     );
   };
 
