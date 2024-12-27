@@ -5,13 +5,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./providers/AuthProvider";
+import { AppointmentsProvider } from "./providers/AppointmentsProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <ToastContainer />
-        <App />
+        <AppointmentsProvider>
+          <ToastContainer />
+          <App />
+        </AppointmentsProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
