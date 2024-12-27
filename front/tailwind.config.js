@@ -6,8 +6,9 @@ export default {
       colors: {
         primary: "#FFF0DC",
         secondary: "#FFCDB2",
-        tertiary: "#FF9AA2",
-        quaternary: "#FF6363",
+        tertiary: "#F0BB78",
+        quaternary: "#543A14",
+        quinary: "#131010",
       },
       container: {
         center: true,

@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import NavBarBanner from "./components/NavBarBanner";
 import Footer from "./components/Footer";
 import Home from "./views/Home";
 import Login from "./views/Login";
@@ -17,6 +18,12 @@ function App() {
       {location.pathname === "/login" ||
       location.pathname === "/register" ? null : (
         <NavBar />
+      )}
+
+      {/* Navbar Banner with conditional rendering */}
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ? null : (
+        <NavBarBanner />
       )}
 
       {/* Content */}

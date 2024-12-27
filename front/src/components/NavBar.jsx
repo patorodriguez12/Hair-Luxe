@@ -2,11 +2,14 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
+import { FaScissors } from "react-icons/fa6";
+import { MdMenu } from "react-icons/md";
+import { motion } from "framer-motion";
+import NavBarMenu from "./NavBarMenu";
 
 const NavBar = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -17,10 +20,6 @@ const NavBar = () => {
     setIsOpen(false);
   };
 
-  const toggleUserMenu = () => {
-    setUserMenuOpen(!userMenuOpen);
-  };
-
   const handleLogout = () => {
     setCurrentUser(null);
     Cookies.remove("currentUser");
@@ -29,100 +28,96 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white shadow-md z-50 relative">
-      <div className="container mx-auto flex justify-between items-center p-4">
-        <div className="flex items-center">
-          <button
-            onClick={toggleMenu}
-            className="text-white focus:outline-none md:hidden"
-          >
-            {isOpen ? (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            ) : (
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
-              </svg>
-            )}
-          </button>
-          <Link to="/" className="text-2xl font-bold ml-4">
-            Hair Luxe
-          </Link>
-        </div>
-        <ul
-          className={`md:flex md:items-center md:space-x-6 ${
-            isOpen ? "block" : "hidden"
-          } md:block`}
-        >
-          {currentUser ? (
-            <>
-              <li className="relative">
-                <button
-                  onClick={toggleUserMenu}
-                  className="block px-4 py-2 hover:bg-blue-700 rounded-md"
-                >
-                  Bienvenido, {currentUser.forename}
-                </button>
-                {userMenuOpen && (
-                  <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg">
-                    <li>
-                      <Link
-                        to="/profile"
-                        onClick={closeMenu}
-                        className="block px-4 py-2 hover:bg-blue-700 rounded-md"
-                      >
-                        Ver Perfil
-                      </Link>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleLogout}
-                        className="block px-4 py-2 hover:bg-blue-700 rounded-md w-full text-left"
-                      >
-                        Cerrar Sesión
-                      </button>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            </>
-          ) : (
-            <li>
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="block px-4 py-2 hover:bg-blue-700 rounded-md"
-              >
-                Login
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
+        <nav className="bg-primary shadow-md">
+          <div className="container flex justify-between items-center py-6 ">
+            {/* Logo section */}
+            <div className="text-2xl flex items-center gap-2 font-bold">
+              <Link to="/">
+                <FaScissors className="text-3xl text-quaternary" />
               </Link>
-            </li>
-          )}
-        </ul>
-      </div>
-    </nav>
+              <Link to="/" className="text-3xl">
+                HairLuxe
+              </Link>
+            </div>
+
+            {/* Menu Section */}
+            <div className="hidden lg:block">
+              <ul className="flex items-center gap-6">
+                <li>
+                  <Link
+                    to="/schedule"
+                    className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
+                  >
+                    Nuestros servicios
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/about"
+                    className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
+                  >
+                    Sobre nosotros
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
+                  >
+                    Contactanos
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* CTA button section */}
+            {currentUser ? (
+              <div className="hidden lg:block space-x-6">
+                <Link
+                  to="/appointments"
+                  className="text-white bg-tertiary font-semibold rounded-full px-6 py-2"
+                >
+                  Mis turnos
+                </Link>
+                <Link
+                  to="/"
+                  className="text-white bg-tertiary font-semibold rounded-full px-6 py-2"
+                  onClick={handleLogout}
+                >
+                  Cerrar sesion
+                </Link>
+              </div>
+            ) : (
+              <div className="hidden lg:block space-x-6">
+                <Link to="/login" className="font-semibold">
+                  Iniciar sesion
+                </Link>
+                <Link
+                  to="/register"
+                  className="text-white bg-tertiary font-semibold rounded-full px-6 py-2"
+                >
+                  Registrarse
+                </Link>
+              </div>
+            )}
+
+            {/* Mobile menu section */}
+            <div className="lg:hidden flex items-center" onClick={toggleMenu}>
+              <MdMenu className="text-4xl"></MdMenu>
+            </div>
+          </div>
+        </nav>
+
+        {/* Mobile sidebar section */}
+        <NavBarMenu isOpen={isOpen} closeMenu={closeMenu} />
+      </motion.div>
+    </>
   );
 };
 
