@@ -6,6 +6,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
+import { FaArrowLeft } from "react-icons/fa6";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,6 +23,10 @@ const Login = () => {
       .min(6, "La contraseña debe tener al menos 6 caracteres")
       .required("Contraseña requerida"),
   });
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const handleSubmit = async (values) => {
     setLoading(true);
@@ -44,6 +49,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
+      <button
+        onClick={handleBack}
+        className="absolute top-4 left-4 text-quaternary hover:text-quaternary-dark transition-all"
+      >
+        <FaArrowLeft className="text-2xl" />
+      </button>
       {/* Left side: Image and welcome message */}
       <div className="hidden md:flex md:w-1/2 bg-primary text-white flex-col justify-center items-center p-8">
         <img
@@ -51,9 +62,12 @@ const Login = () => {
           alt="Welcome"
           className="w-80 h-80 object-cover rounded-full"
         />
-        <h1 className="text-3xl font-bold mt-4 text-quaternary">Bienvenido a nuestra página</h1>
+        <h1 className="text-3xl font-bold mt-4 text-quaternary">
+          Bienvenido de vuelta
+        </h1>
         <p className="mt-2 text-lg text-quaternary">
-          Explora nuestros servicios y disfruta de una experiencia única.
+          Inicia sesion en tu cuenta y agenda ya mismo un turno para tu nuevo
+          estilo
         </p>
       </div>
 
