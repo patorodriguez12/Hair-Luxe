@@ -12,11 +12,11 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
       <div
         className={`px-3 py-1 text-sm font-medium rounded-full w-fit ${
           appointment.status === "active"
-            ? "bg-green-100 text-green-700"
-            : "bg-yellow-100 text-yellow-700"
+            ? "bg-green-200 text-green-700"
+            : "bg-red-200 text-red-700"
         }`}
       >
-        {appointment.status === "active" ? "Activo" : "Pendiente"}
+        {appointment.status === "active" ? "Activo" : "Cancelado"}
       </div>
       <button
         className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
