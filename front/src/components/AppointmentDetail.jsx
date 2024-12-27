@@ -1,11 +1,46 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const AppointmentDetail = ({ handleOnClose, id }) => {
-  const { currentUser } = useContext(AuthContext);
-  const appointments = currentUser.appointments.find((appointment) => appointment.id === id);
-  const service = appointments.service;
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const appointment = currentUser.appointments.find(
+    (appointment) => appointment.id === id
+  );
+  const service = appointment.service;
+
+  const handleCancelAppointment = async () => {
+    const confirmCancel = window.confirm(
+      "¿Estás seguro de que deseas cancelar este turno?"
+    );
+    if (!confirmCancel) return;
+
+    try {
+      const token = Cookies.get("token");
+      await axios.put(
+        `/appointments/cancel/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update the currentUser state to reflect the cancelled appointment
+      const updatedAppointments = currentUser.appointments.map((appt) =>
+        appt.id === id ? { ...appt, status: "cancelled" } : appt
+      );
+      setCurrentUser({ ...currentUser, appointments: updatedAppointments });
+
+      handleOnClose();
+    } catch (error) {
+      console.error("Error cancelling appointment:", error);
+      alert("Error al cancelar el turno. Por favor, inténtalo de nuevo.");
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
@@ -30,27 +65,35 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
             />
           </svg>
         </button>
-        <h2 className="text-2xl font-bold mb-4">Detalle del Turno</h2>
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold">Servicio</h3>
-          <p className="text-gray-700">{service.name}</p>
-        </div>
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold">Precio</h3>
-          <p className="text-gray-700">${service.price}</p>
-        </div>
-        <div className="mb-4">
-          <h3 className="text-xl font-semibold">Fecha</h3>
-          <p className="text-gray-700">{new Date(appointments.date).toLocaleString()}</p>
-        </div>
-        <div className="flex justify-end">
+
+        {/* Appointment details */}
+        <h2 className="text-2xl font-semibold mb-4">Detalles del Turno</h2>
+        <p>
+          <strong>Servicio:</strong> {service.name}
+        </p>
+        <p>
+          <strong>Descripción:</strong> {service.description}
+        </p>
+        <p>
+          <strong>Fecha:</strong> {appointment.date}
+        </p>
+        <p>
+          <strong>Hora:</strong> {appointment.time}
+        </p>
+        <p>
+          <strong>Estado:</strong>{" "}
+          {appointment.status === "active" ? "Activo" : "Cancelado"}
+        </p>
+
+        {/* Cancel appointment button */}
+        {appointment.status === "active" && (
           <button
-            onClick={handleOnClose}
-            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
+            onClick={handleCancelAppointment}
+            className="mt-4 w-full py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all"
           >
-            Cerrar
+            Cancelar Turno
           </button>
-        </div>
+        )}
       </div>
     </div>
   );
