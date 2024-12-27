@@ -77,15 +77,6 @@ const NavBar = () => {
             isOpen ? "block" : "hidden"
           } md:block`}
         >
-          <li>
-            <Link
-              to="/"
-              onClick={closeMenu}
-              className="block px-4 py-2 hover:bg-blue-700 rounded-md"
-            >
-              Home
-            </Link>
-          </li>
           {currentUser ? (
             <>
               <li className="relative">
@@ -104,15 +95,6 @@ const NavBar = () => {
                         className="block px-4 py-2 hover:bg-blue-700 rounded-md"
                       >
                         Ver Perfil
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/my-appointments"
-                        onClick={closeMenu}
-                        className="block px-4 py-2 hover:bg-blue-700 rounded-md"
-                      >
-                        Mis Turnos
                       </Link>
                     </li>
                     <li>
