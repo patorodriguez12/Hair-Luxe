@@ -7,7 +7,8 @@ const Register = () => {
   const URL = "/users/register";
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("El nombre es requerido"),
+    forename: Yup.string().required("El nombre es requerido"),
+    surname: Yup.string().required("El apellido es requerido"),
     email: Yup.string()
       .email("Correo electrónico inválido")
       .required("Correo electrónico requerido"),
@@ -19,8 +20,8 @@ const Register = () => {
   const handleSubmit = (values) => {
     axios.post(URL, values).then((response) => {
       console.log(response.data);
-    })
-    console.log(values)
+    });
+    console.log(values);
   };
 
   return (
@@ -33,7 +34,8 @@ const Register = () => {
         {/* Form using Formik */}
         <Formik
           initialValues={{
-            name: "",
+            forename: "",
+            surname: "",
             email: "",
             password: "",
           }}
@@ -43,23 +45,45 @@ const Register = () => {
         >
           {({ isValid }) => (
             <Form>
-              {/* Name field */}
+              {/* Forename field */}
               <div className="mb-4">
                 <label
-                  htmlFor="name"
+                  htmlFor="forename"
                   className="block text-sm font-medium text-gray-600"
                 >
-                  Nombre completo
+                  Nombre
                 </label>
                 <Field
                   type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your full name"
+                  id="forename"
+                  name="forename"
+                  placeholder="Ingresa tu nombre"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 />
                 <ErrorMessage
-                  name="name"
+                  name="forename"
+                  component="div"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
+
+              {/* Surname field */}
+              <div className="mb-4">
+                <label
+                  htmlFor="surname"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Apellido
+                </label>
+                <Field
+                  type="text"
+                  id="surname"
+                  name="surname"
+                  placeholder="Ingresa tu apellido"
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+                <ErrorMessage
+                  name="surname"
                   component="div"
                   className="text-red-500 text-xs mt-1"
                 />
@@ -77,7 +101,7 @@ const Register = () => {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Ingresa tu correo electronico"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 />
                 <ErrorMessage
@@ -99,7 +123,7 @@ const Register = () => {
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder="Ingresa una contraseña"
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 />
                 <ErrorMessage

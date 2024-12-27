@@ -93,7 +93,7 @@ const NavBar = () => {
                   onClick={toggleUserMenu}
                   className="block px-4 py-2 hover:bg-blue-700 rounded-md"
                 >
-                  Bienvenido, {currentUser.name}
+                  Bienvenido, {currentUser.forename}
                 </button>
                 {userMenuOpen && (
                   <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg">
