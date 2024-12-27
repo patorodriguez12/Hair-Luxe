@@ -24,11 +24,12 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  const { forename, surname, email, password } = req.body;
 
   try {
     const newUser: User = await registerUserService({
-      name,
+      forename,
+      surname,
       email,
       password,
     });

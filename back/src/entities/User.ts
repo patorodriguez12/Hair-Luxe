@@ -1,9 +1,4 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Appointment } from "./Appointment";
 
 @Entity({
@@ -14,7 +9,10 @@ export class User {
   id: number;
 
   @Column()
-  name: string;
+  forename: string;
+
+  @Column()
+  surname: string;
 
   @Column()
   email: string;
