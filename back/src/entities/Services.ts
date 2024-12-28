@@ -17,6 +17,9 @@ export class Service {
   @Column()
   price: number;
 
+  @Column()
+  image: string;
+
   @OneToMany(() => Appointment, (appointment) => appointment.service)
   appointments: Appointment[];
 }
