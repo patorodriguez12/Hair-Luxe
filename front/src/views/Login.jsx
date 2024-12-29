@@ -25,10 +25,6 @@ const Login = () => {
       .required("Contraseña requerida"),
   });
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const handleSubmit = async (values) => {
     setLoading(true);
 
@@ -55,12 +51,12 @@ const Login = () => {
       transition={{ duration: 0.5, delay: 0.1 }}
     >
       <div className="min-h-screen flex flex-col md:flex-row">
-        <button
-          onClick={handleBack}
+        <Link
+          to="/"
           className="absolute top-4 left-4 text-quaternary hover:text-quaternary-dark transition-all"
         >
           <FaArrowLeft className="text-2xl" />
-        </button>
+        </Link>
         {/* Left side: Image and welcome message */}
         <div className="hidden md:flex md:w-1/2 bg-primary text-white flex-col justify-center items-center p-8">
           <img
