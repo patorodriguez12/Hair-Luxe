@@ -11,29 +11,27 @@ import NotAuthLayout from "./layouts/NotAuthLayout";
 
 function App() {
   return (
-    <div>
     <Routes>
-        {/* Public routes */}
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-        </Route>
+      {/* Public routes */}
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<Home />} />
+      </Route>
 
-        {/* Authenticated routes */}
-        <Route element={<AuthLayout />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/schedule" element={<AppointmentSchedule />} />
-        </Route>
+      {/* Authenticated routes */}
+      <Route element={<AuthLayout />}>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/schedule" element={<AppointmentSchedule />} />
+      </Route>
 
-        {/* Non-authenticated routes */}
-        <Route element={<NotAuthLayout />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
+      {/* Non-authenticated routes */}
+      <Route element={<NotAuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
 
-        {/* Not found route */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+      {/* Not found route */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
