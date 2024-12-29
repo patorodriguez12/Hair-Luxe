@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
 import { FaArrowLeft } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,9 +37,15 @@ const Login = () => {
       const { user, token } = response.data;
       setCurrentUser(user);
       Cookies.set("token", token, { expires: 7 });
+      toast.success("Inicio de sesión exitoso, bienvenido", {
+        position: "bottom-left",
+      });
       navigate("/");
     } catch (error) {
-      console.error(error);
+      const errorMessage = error.response?.data.error || "Error de servidor";
+      toast.error(errorMessage, {
+        position: "bottom-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -57,6 +64,7 @@ const Login = () => {
         >
           <FaArrowLeft className="text-2xl" />
         </Link>
+        
         {/* Left side: Image and welcome message */}
         <div className="hidden md:flex md:w-1/2 bg-primary text-white flex-col justify-center items-center p-8">
           <img
