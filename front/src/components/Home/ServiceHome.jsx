@@ -6,7 +6,7 @@ import { SlideLeft } from "../../utils/animation";
 const ServiceHome = () => {
   const { services } = useContext(ServicesContext);
   return (
-    <div className="bg-[#f9fafc]">
+    <div className="bg-[#f9fafc]" id="service-section">
       <div className="container py-24">
         {/* header section */}
         <div>

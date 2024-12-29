@@ -34,6 +34,13 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  const handleScrollToServices = () => {
+    const serviceSection = document.getElementById("service-section");
+    if (serviceSection) {
+      serviceSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -57,12 +64,12 @@ const NavBar = () => {
             <div className="hidden lg:block">
               <ul className="flex items-center gap-6">
                 <li>
-                  <Link
-                    to="/schedule"
+                  <button
                     className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
+                    onClick={handleScrollToServices}
                   >
                     Nuestros servicios
-                  </Link>
+                  </button>
                 </li>
                 <li>
                   <Link
@@ -85,17 +92,21 @@ const NavBar = () => {
 
             {/* CTA button section */}
             {currentUser ? (
-               <div className="hidden lg:block relative">
-               <div
-                 className="flex items-center gap-2 cursor-pointer"
-                 onClick={toggleUserMenu}
-               >
-                 <FaUserCircle className="text-3xl text-quaternary" />
-                 <span>{currentUser.forename}</span>
-                 <FaChevronDown className={`text-quaternary transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
-               </div>
-               <NavBarUserMenu isOpen={menuOpen} handleLogout={handleLogout} />
-             </div>
+              <div className="hidden lg:block relative">
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={toggleUserMenu}
+                >
+                  <FaUserCircle className="text-3xl text-quaternary" />
+                  <span>{currentUser.forename}</span>
+                  <FaChevronDown
+                    className={`text-quaternary transition-transform ${
+                      menuOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                <NavBarUserMenu isOpen={menuOpen} handleLogout={handleLogout} />
+              </div>
             ) : (
               <div className="hidden lg:block space-x-6">
                 <Link to="/login" className="font-semibold">

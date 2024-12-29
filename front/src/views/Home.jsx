@@ -1,14 +1,20 @@
 import Hero from "../components/Home/HeroHome";
 import ServiceHome from "../components/Home/ServiceHome";
+import { useRef } from "react";
 
 const Home = () => {
+  const serviceRef = useRef(null);
+  const scrollToServices = () => {
+    serviceRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div id="home" className="bg-gray-100 text-gray-800">
       {/* Hero Section */}
       <Hero />
 
       {/* Services Section */}
-      <ServiceHome />
+      <ServiceHome ref={serviceRef} />
 
       {/* Testimonials Section */}
       <section className="bg-gray-200 py-12">
