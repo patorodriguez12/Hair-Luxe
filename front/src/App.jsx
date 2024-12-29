@@ -1,10 +1,14 @@
 import { Route, Routes } from "react-router-dom";
+
+// Views imports
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import AppointmentSchedule from "./components/Appointments/AppointmentSchedule";
+import AppointmentSchedule from "./views/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
+
+// Layouts imports
 import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import NotAuthLayout from "./layouts/NotAuthLayout";

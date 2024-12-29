@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { AppointmentsContext } from "../../context/AppointmentsContext";
-import { AuthContext } from "../../context/AuthContext";
-import { ServicesContext } from "../../context/ServicesContext";
+import { AppointmentsContext } from "../context/AppointmentsContext";
+import { AuthContext } from "../context/AuthContext";
+import { ServicesContext } from "../context/ServicesContext";
 import Cookies from "js-cookie";
 
 const AppointmentSchedule = () => {
