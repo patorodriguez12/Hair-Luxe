@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import MyAppointments from "../components/MyAppointments";
+import MyAppointments from "../components/Appointments/MyAppointments";
 
 const Profile = () => {
   const { currentUser } = useContext(AuthContext);

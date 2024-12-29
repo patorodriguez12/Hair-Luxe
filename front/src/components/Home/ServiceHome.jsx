@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { motion } from "framer-motion";
-import { ServicesContext } from "../context/ServicesContext";
-import { SlideLeft } from "./animation";
+import { ServicesContext } from "../../context/ServicesContext";
+import { SlideLeft } from "../../utils/animation";
 
 const ServiceHome = () => {
   const { services } = useContext(ServicesContext);

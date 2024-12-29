@@ -1,8 +1,8 @@
-import HeroImg from "../assets/HeroImg.png";
+import HeroImg from "../../assets/HeroImg.png";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { SlideRight } from "./animation";
+import { SlideRight } from "../../utils/animation";
 
 const Hero = () => {
   return (

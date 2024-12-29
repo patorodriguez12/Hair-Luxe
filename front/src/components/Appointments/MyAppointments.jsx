@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import AppointmentCard from "./AppointmentCard";
 import AppointmentDetail from "./AppointmentDetail";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";

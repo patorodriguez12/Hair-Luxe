@@ -1,11 +1,11 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import NavBarBanner from "./components/NavBarBanner";
-import Footer from "./components/Footer";
+import NavBar from "./components/NavBar/NavBar";
+import NavBarBanner from "./components/NavBar/NavBarBanner";
+import Footer from "./components/Footer/Footer";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
-import AppointmentSchedule from "./components/AppointmentSchedule";
+import AppointmentSchedule from "./components/Appointments/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
 
