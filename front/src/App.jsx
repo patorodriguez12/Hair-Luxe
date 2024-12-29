@@ -8,6 +8,8 @@ import Register from "./views/Register";
 import AppointmentSchedule from "./components/Appointments/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
+import AuthRoutes from "./components/ProtectedRoutes/AuthRoutes";
+import NotAuthRoutes from "./components/ProtectedRoutes/NotAuthRoutes";
 
 function App() {
   const location = useLocation();
@@ -30,10 +32,44 @@ function App() {
       <main className="flex-grow overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/schedule" element={<AppointmentSchedule />} />
+
+          {/* User authenticated routes */}
+          <Route
+            path="/profile"
+            element={
+              <AuthRoutes>
+                <Profile />
+              </AuthRoutes>
+            }
+          />
+          <Route
+            path="/schedule"
+            element={
+              <NotAuthRoutes>
+                <AppointmentSchedule />
+              </NotAuthRoutes>
+            }
+          />
+
+          {/* User not authenticated routes */}
+          <Route
+            path="/login"
+            element={
+              <NotAuthRoutes>
+                <Login />
+              </NotAuthRoutes>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <NotAuthRoutes>
+                <Register />
+              </NotAuthRoutes>
+            }
+          />
+
+          {/* Not found route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

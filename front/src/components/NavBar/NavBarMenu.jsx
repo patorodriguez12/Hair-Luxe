@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
-const NavBarMenu = ({ isOpen, handleLogout }) => {
+const NavBarMenu = ({ isOpen }) => {
   const { currentUser } = useContext(AuthContext);
 
   return (
@@ -38,7 +38,7 @@ const NavBarMenu = ({ isOpen, handleLogout }) => {
                     <Link to="/my-appointments">Mis Turnos</Link>
                   </li>
                   <li>
-                    <button onClick={handleLogout}>Cerrar Sesión</button>
+                    <button>Cerrar Sesión</button>
                   </li>
                 </>
               )}
@@ -52,7 +52,7 @@ const NavBarMenu = ({ isOpen, handleLogout }) => {
 
 NavBarMenu.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  handleLogout: PropTypes.func.isRequired,
+  // handleLogout: PropTypes.func.isRequired,
 };
 
 export default NavBarMenu;
