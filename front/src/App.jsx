@@ -45,9 +45,9 @@ function App() {
           <Route
             path="/schedule"
             element={
-              <NotAuthRoutes>
+              <AuthRoutes>
                 <AppointmentSchedule />
-              </NotAuthRoutes>
+              </AuthRoutes>
             }
           />
 
