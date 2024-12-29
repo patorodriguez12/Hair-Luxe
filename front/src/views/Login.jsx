@@ -57,6 +57,8 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
+
+      {/* Go back button */}
       <div className="min-h-screen flex flex-col md:flex-row">
         <Link
           to="/"
@@ -88,6 +90,7 @@ const Login = () => {
               Ingresa a tu cuenta
             </h1>
 
+            {/* Form using Formik */}
             <Formik
               initialValues={{
                 email: "",
