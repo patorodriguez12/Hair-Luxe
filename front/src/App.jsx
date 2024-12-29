@@ -1,84 +1,38 @@
-import { Route, Routes, useLocation } from "react-router-dom";
-import NavBar from "./components/NavBar/NavBar";
-import NavBarBanner from "./components/NavBar/NavBarBanner";
-import Footer from "./components/Footer/Footer";
+import { Route, Routes } from "react-router-dom";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import AppointmentSchedule from "./components/Appointments/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
-import AuthRoutes from "./components/ProtectedRoutes/AuthRoutes";
-import NotAuthRoutes from "./components/ProtectedRoutes/NotAuthRoutes";
+import PublicLayout from "./layouts/PublicLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import NotAuthLayout from "./layouts/NotAuthLayout";
 
 function App() {
-  const location = useLocation();
-
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navbar with conditional rendering */}
-      {location.pathname === "/login" ||
-      location.pathname === "/register" ? null : (
-        <NavBar />
-      )}
-
-      {/* Navbar Banner with conditional rendering */}
-      {location.pathname === "/login" ||
-      location.pathname === "/register" ? null : (
-        <NavBarBanner />
-      )}
-
-      {/* Content */}
-      <main className="flex-grow overflow-x-hidden">
-        <Routes>
+    <div>
+    <Routes>
+        {/* Public routes */}
+        <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
+        </Route>
 
-          {/* User authenticated routes */}
-          <Route
-            path="/profile"
-            element={
-              <AuthRoutes>
-                <Profile />
-              </AuthRoutes>
-            }
-          />
-          <Route
-            path="/schedule"
-            element={
-              <AuthRoutes>
-                <AppointmentSchedule />
-              </AuthRoutes>
-            }
-          />
+        {/* Authenticated routes */}
+        <Route element={<AuthLayout />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/schedule" element={<AppointmentSchedule />} />
+        </Route>
 
-          {/* User not authenticated routes */}
-          <Route
-            path="/login"
-            element={
-              <NotAuthRoutes>
-                <Login />
-              </NotAuthRoutes>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <NotAuthRoutes>
-                <Register />
-              </NotAuthRoutes>
-            }
-          />
+        {/* Non-authenticated routes */}
+        <Route element={<NotAuthLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-          {/* Not found route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-
-      {/* Footer with conditional rendering */}
-      {location.pathname === "/login" ||
-      location.pathname === "/register" ? null : (
-        <Footer />
-      )}
+        {/* Not found route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
