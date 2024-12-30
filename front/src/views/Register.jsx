@@ -23,12 +23,11 @@ const Register = () => {
       .required("Contraseña requerida"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     setLoading(true);
     try {
-      axios.post(URL, values).then((response) => {
-        console.log(response.data);
-      });
+      const response = await axios.post(URL, values);
+      console.log(response)
       toast.success("Registro realizado con exito, por favor inicia sesion", {
         position: "bottom-left",
       });
