@@ -19,7 +19,16 @@ const AppointmentSchedule = () => {
 
   const validationSchema = Yup.object().shape({
     service: Yup.string().required("Servicio requerido"),
-    date: Yup.date().required("Fecha requerida"),
+    date: Yup.date()
+      .required("Fecha requerida")
+      .test(
+        "no-sundays",
+        "Lo sentimos, los dias de servicio son de lunes a sabado",
+        (value) => {
+          const day = new Date(value).getDay();
+          return day !== 0;
+        }
+      ),
     time: Yup.string().required("Hora requerida"),
   });
 
@@ -90,8 +99,10 @@ const AppointmentSchedule = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Agendar Turno</h1>
+    <div className="container mx-auto p-4 max-w-2xl">
+      <h1 className="text-3xl font-bold mb-6 text-center text-quaternary">
+        Agendar Turno
+      </h1>
       <Formik
         initialValues={{ service: "", date: "", time: "" }}
         validationSchema={validationSchema}
@@ -180,7 +191,7 @@ const AppointmentSchedule = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-quaternary hover:bg-quaternary-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 {isSubmitting ? "Agendando..." : "Agendar Turno"}
               </button>
