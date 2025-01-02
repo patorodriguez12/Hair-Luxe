@@ -24,7 +24,7 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { forename, surname, email, password } = req.body;
+  const { forename, surname, email, password, role } = req.body;
 
   try {
     const newUser: User = await registerUserService({
@@ -32,6 +32,7 @@ export const registerUser = async (req: Request, res: Response) => {
       surname,
       email,
       password,
+      role,
     });
     res.status(201).json(newUser);
   } catch (error: any) {
