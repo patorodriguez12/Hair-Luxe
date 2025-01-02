@@ -5,9 +5,12 @@ import axios from "axios";
 import { AppointmentsContext } from "../context/AppointmentsContext";
 import { AuthContext } from "../context/AuthContext";
 import { ServicesContext } from "../context/ServicesContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const AppointmentSchedule = () => {
+  const navigate = useNavigate();
   const { appointments, setAppointments } = useContext(AppointmentsContext);
   const { currentUser } = useContext(AuthContext);
   const { services } = useContext(ServicesContext);
@@ -55,7 +58,7 @@ const AppointmentSchedule = () => {
     const token = Cookies.get("token");
 
     try {
-      const response = await axios.post(
+      await axios.post(
         "/appointments/schedule",
         {
           userId: currentUser.id,
@@ -69,12 +72,17 @@ const AppointmentSchedule = () => {
           },
         }
       );
-
-      console.log(response.data);
       resetForm();
+      toast.success("Turno agendado correctamente", {
+        position: "bottom-left",
+      });
+      navigate("/profile");
     } catch (error) {
-      console.error("Error scheduling appointment", error);
-      setError("Error al agendar el turno.");
+      const errorMessage = error.response?.data.error || "Error de servidor";
+      setError(errorMessage);
+      toast.error(errorMessage, {
+        position: "bottom-right",
+      });
     }
   };
 
@@ -86,7 +94,6 @@ const AppointmentSchedule = () => {
         appointment.status === "active"
     );
   };
-
 
   const morningSlots = ["08:00", "09:00", "10:00", "11:00"];
   const eveningSlots = ["16:00", "17:00", "18:00", "19:00", "20:00"];
@@ -203,20 +210,18 @@ const AppointmentSchedule = () => {
                       ))}
                     </optgroup>
                     <optgroup label="Turno tarde">
-                      {eveningSlots.map(
-                        (slot) => (
-                          <option
-                            key={slot}
-                            value={slot}
-                            disabled={!isTimeSlotAvailable(values.date, slot)}
-                          >
-                            {slot}{" "}
-                            {isTimeSlotAvailable(values.date, slot)
-                              ? ""
-                              : "(Ocupado)"}
-                          </option>
-                        )
-                      )}
+                      {eveningSlots.map((slot) => (
+                        <option
+                          key={slot}
+                          value={slot}
+                          disabled={!isTimeSlotAvailable(values.date, slot)}
+                        >
+                          {slot}{" "}
+                          {isTimeSlotAvailable(values.date, slot)
+                            ? ""
+                            : "(Ocupado)"}
+                        </option>
+                      ))}
                     </optgroup>
                   </Field>
                   <ErrorMessage
