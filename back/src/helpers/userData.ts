@@ -1,9 +1,9 @@
 export const userData = [
   {
-    forename: "Juan",
-    surname: "Pérez",
-    email: "juan.perez@example.com",
-    password: "password123",
+    forename: "Admin",
+    surname: "Luxe",
+    email: "admin@hairluxe.com",
+    password: "admin321",
     role: "admin",
   },
   {
