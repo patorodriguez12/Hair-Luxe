@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,6 +11,11 @@ const Register = () => {
   const navigate = useNavigate();
   const URL = "/users/register";
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const validationSchema = Yup.object().shape({
     forename: Yup.string().required("El nombre es requerido"),
@@ -21,13 +26,16 @@ const Register = () => {
     password: Yup.string()
       .min(6, "La contraseña debe tener al menos 6 caracteres")
       .required("Contraseña requerida"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Las contrasenias deben coincidir")
+      .required("Confirmar contraseña es requerido"),
   });
 
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
       const response = await axios.post(URL, values);
-      console.log(response)
+      console.log(response);
       toast.success("Registro realizado con exito, por favor inicia sesion", {
         position: "bottom-left",
       });
@@ -85,6 +93,7 @@ const Register = () => {
                 surname: "",
                 email: "",
                 password: "",
+                confirmPassword: "",
               }}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
@@ -154,24 +163,55 @@ const Register = () => {
                     />
 
                     {/* Password field */}
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-quaternary"
-                    >
-                      Contraseña:{" "}
-                    </label>
-                    <Field
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="Ingresa tu contraseña"
-                      className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
-                    />
-                    <ErrorMessage
-                      name="password"
-                      component="p"
-                      className="text-red-500 text-sm"
-                    />
+                    <div className="mb-4 relative">
+                      <label
+                        htmlFor="password"
+                        className="block text-sm font-medium text-quaternary"
+                      >
+                        Contraseña:
+                      </label>
+                      <Field
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        id="password"
+                        placeholder="Ingresa tu contraseña"
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-9 text-quaternary"
+                      >
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
+                      <ErrorMessage
+                        name="password"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+
+                    {/* Confirm password field */}
+                    <div className="mb-4 relative">
+                      <label
+                        htmlFor="confirmPassword"
+                        className="block text-sm font-medium text-quaternary"
+                      >
+                        Confirmar Contraseña:
+                      </label>
+                      <Field
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="Confirma tu contraseña"
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                      />
+                      <ErrorMessage
+                        name="confirmPassword"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
                   </div>
 
                   {/* Submit button */}
