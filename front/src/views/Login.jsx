@@ -6,7 +6,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import Cookies from "js-cookie";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
@@ -14,6 +14,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const URL = "/users/login";
 
@@ -57,7 +62,6 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-
       {/* Go back button */}
       <div className="min-h-screen flex flex-col md:flex-row">
         <Link
@@ -66,7 +70,7 @@ const Login = () => {
         >
           <FaArrowLeft className="text-2xl" />
         </Link>
-        
+
         {/* Left side: Image and welcome message */}
         <div className="hidden md:flex md:w-1/2 bg-primary text-white flex-col justify-center items-center p-8">
           <img
@@ -125,7 +129,7 @@ const Login = () => {
                   </div>
 
                   {/* Password field */}
-                  <div className="mb-6">
+                  <div className="mb-6 relative">
                     <label
                       htmlFor="password"
                       className="block text-sm font-medium text-quaternary"
@@ -133,12 +137,21 @@ const Login = () => {
                       Contraseña
                     </label>
                     <Field
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
                       placeholder="Ingresa tu contraseña"
                       className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                     />
+
+                    {/* Show password button */}
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-9 text-quaternary"
+                      >
+                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
                     <ErrorMessage
                       name="password"
                       component="p"

@@ -177,6 +177,8 @@ const Register = () => {
                         placeholder="Ingresa tu contraseña"
                         className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
                       />
+
+                      {/* Show password button */}
                       <button
                         type="button"
                         onClick={togglePasswordVisibility}
