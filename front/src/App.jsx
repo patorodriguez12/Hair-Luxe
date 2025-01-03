@@ -7,9 +7,11 @@ import Register from "./views/Register";
 import AppointmentSchedule from "./views/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
+import CreateService from "./views/CreateService";
 
 // Layouts imports
 import PublicLayout from "./layouts/PublicLayout";
+import AdminLayout from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import NotAuthLayout from "./layouts/NotAuthLayout";
 
@@ -25,6 +27,11 @@ function App() {
       <Route element={<AuthLayout />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/schedule" element={<AppointmentSchedule />} />
+      </Route>
+
+      {/* Admin routes */}
+      <Route element={<AdminLayout />}>
+        <Route path="/create-service" element={<CreateService />} />
       </Route>
 
       {/* Non-authenticated routes */}
