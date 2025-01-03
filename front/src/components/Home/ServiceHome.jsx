@@ -2,9 +2,39 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 import { ServicesContext } from "../../context/ServicesContext";
 import { SlideLeft } from "../../utils/animation";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ServiceHome = () => {
   const { services } = useContext(ServicesContext);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="bg-[#f9fafc]" id="service-section">
       <div className="container py-24">
@@ -21,27 +51,29 @@ const ServiceHome = () => {
         </div>
 
         {/* cards section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {services.map((service) => {
-            return (
+        <Slider {...settings}>
+          {services.map((service) => (
+            <div key={service.id} className="p-4">
               <motion.div
-                variants={SlideLeft(0.2)}
+                className="bg-white shadow-lg rounded-lg p-6"
                 initial="hidden"
-                whileInView={"visible"}
-                key={service.id}
-                className="space-y-4 p-6 rounded-xl shadow-[0_0_22px_rgba(0,0,0,0.15)]"
+                animate="visible"
+                variants={SlideLeft}
               >
-                {/* image section  */}
-                <div className="w-120 h-120 rounded-lg flex justify-center items-center text-white">
-                  <img src={service.image} alt={service.name} />
-                </div>
-
-                <p className="text-2xl font-semibold">{service.name}</p>
-                <p className="text-sm text-gray-500">{service.description}</p>
+                <img
+                  src={service.image}
+                  alt={service.name}
+                  className="w-full h-40 object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-xl font-bold mb-2">{service.name}</h3>
+                <p className="text-gray-600">{service.description}</p>
+                <p className="text-gray-800 font-semibold mt-4">
+                  ${service.price}
+                </p>
               </motion.div>
-            );
-          })}
-        </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );
