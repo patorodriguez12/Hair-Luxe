@@ -73,10 +73,10 @@ const NavBar = () => {
                 </li>
                 <li>
                   <Link
-                    to="/about"
+                    to="/schedule"
                     className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
                   >
-                    Sobre nosotros
+                    Agenda tu turno
                   </Link>
                 </li>
                 <li>
@@ -84,7 +84,7 @@ const NavBar = () => {
                     to="/contact"
                     className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
                   >
-                    Contactanos
+                    Trabaja con nosotros
                   </Link>
                 </li>
               </ul>
@@ -129,7 +129,11 @@ const NavBar = () => {
         </nav>
 
         {/* Mobile sidebar section */}
-        <NavBarMenu isOpen={isOpen} closeMenu={closeMenu} handleLogout={handleLogout} />
+        <NavBarMenu
+          isOpen={isOpen}
+          closeMenu={closeMenu}
+          handleLogout={handleLogout}
+        />
       </motion.div>
     </>
   );

@@ -35,11 +35,11 @@ const NavBarMenu = ({ isOpen, handleLogout }) => {
                   <li>
                     <Link to="/profile">Mi Perfil</Link>
                   </li>
-                  <li>
-                    {isAdmin && (
-                      <Link to="/create-service">Crear Servicio</Link>
-                    )}
-                  </li>
+                  {isAdmin && (
+                    <li>
+                      <Link to="/admin">Admin</Link>
+                    </li>
+                  )}
                   <li>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
                   </li>
