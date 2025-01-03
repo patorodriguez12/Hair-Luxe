@@ -129,7 +129,7 @@ const NavBar = () => {
         </nav>
 
         {/* Mobile sidebar section */}
-        <NavBarMenu isOpen={isOpen} closeMenu={closeMenu} />
+        <NavBarMenu isOpen={isOpen} closeMenu={closeMenu} handleLogout={handleLogout} />
       </motion.div>
     </>
   );

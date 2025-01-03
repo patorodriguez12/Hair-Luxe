@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
-const NavBarMenu = ({ isOpen }) => {
+const NavBarMenu = ({ isOpen, handleLogout }) => {
   const { currentUser } = useContext(AuthContext);
+  const isAdmin = currentUser && currentUser.role === "admin";
 
   return (
     <AnimatePresence mode="wait">
@@ -35,10 +36,12 @@ const NavBarMenu = ({ isOpen }) => {
                     <Link to="/profile">Mi Perfil</Link>
                   </li>
                   <li>
-                    <Link to="/my-appointments">Mis Turnos</Link>
+                    {isAdmin && (
+                      <Link to="/create-service">Crear Servicio</Link>
+                    )}
                   </li>
                   <li>
-                    <button>Cerrar Sesión</button>
+                    <button onClick={handleLogout}>Cerrar Sesión</button>
                   </li>
                 </>
               )}
@@ -52,7 +55,7 @@ const NavBarMenu = ({ isOpen }) => {
 
 NavBarMenu.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  // handleLogout: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default NavBarMenu;
