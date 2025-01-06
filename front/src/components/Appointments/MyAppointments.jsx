@@ -76,10 +76,6 @@ const MyAppointments = () => {
   return (
     <div className="min-h-full bg-secondary text-gray-800 py-12">
       <div className="container mx-auto px-6 ">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-quaternary text-center">
-          Mis Turnos
-        </h1>
-
         {appointments.length > 0 ? (
           <>
             {/* Appointment Cards Grid */}
