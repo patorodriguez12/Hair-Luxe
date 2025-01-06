@@ -74,8 +74,8 @@ const MyAppointments = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen bg-secondary text-gray-800 py-12">
-      <div className="container mx-auto px-6">
+    <div className="min-h-full bg-secondary text-gray-800 py-12">
+      <div className="container mx-auto px-6 ">
         <h1 className="text-3xl md:text-4xl font-bold mb-8 text-quaternary text-center">
           Mis Turnos
         </h1>
@@ -83,7 +83,7 @@ const MyAppointments = () => {
         {appointments.length > 0 ? (
           <>
             {/* Appointment Cards Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {currentAppointments.map((appointment) => (
                 <AppointmentCard
                   key={appointment.id}
@@ -103,8 +103,8 @@ const MyAppointments = () => {
                         onClick={() => paginate(number)}
                         className={`px-3 py-1 rounded-lg transition-all ${
                           currentPage === number
-                            ? "bg-primary text-white"
-                            : "bg-white text-primary border border-primary hover:bg-primary hover:text-white"
+                            ? "bg-secondary text-white"
+                            : "bg-secondary text-primary border border-primary hover:bg-primary hover:text-white"
                         }`}
                       >
                         {number}

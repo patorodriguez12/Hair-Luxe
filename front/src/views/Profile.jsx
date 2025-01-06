@@ -30,21 +30,35 @@ const Profile = () => {
     >
       <div className="min-h-screen flex flex-col md:flex-row">
         {/* Left side: User Info */}
-        <div className="md:w-1/2 bg-primary text-white flex flex-col justify-center items-center p-8">
+        <div className="md:w-1/4 bg-primary text-white flex flex-col items-center p-8">
           <h1 className="text-3xl font-bold mt-4 text-quaternary">
-            ¡Bienvenido, {currentUser.forename}!
+            ¡Hola, {currentUser.forename}!
           </h1>
           <p className="mt-2 text-lg text-quaternary">
             Aquí puedes ver y gestionar tus turnos.
           </p>
+          <hr className="w-3/4 border-t border-gray-500 p-4" />
+          <div className="flex flex-col items-center mt-4">
+            <p className="mt-2 text-lg text-quaternary">
+              <span className="font-semibold">Nombre:</span>{" "}
+              {currentUser.forename}
+            </p>
+            <p className="mt-2 text-lg text-quaternary">
+              <span className="font-semibold">Apellido:</span>{" "}
+              {currentUser.surname}
+            </p>
+            <p className="mt-2 text-lg text-quaternary">
+              <span className="font-semibold">Correo:</span> {currentUser.email}
+            </p>
+          </div>
         </div>
 
         {/* Right side: Appointments */}
-        <div className="md:w-1/2 bg-secondary text-black flex flex-col justify-center items-center p-6">
+        <div className="md:w-3/4 bg-secondary flex flex-col items-center pt-4 m-0">
           <h2 className="text-2xl font-bold mb-4 text-quaternary">
             Tus Turnos Agendados
           </h2>
-          <div className="w-full max-w-lg">
+          <div className="w-full">
             <MyAppointments />
           </div>
         </div>

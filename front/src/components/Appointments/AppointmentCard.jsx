@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const AppointmentCard = ({ appointment, handleOnClick }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 border-l-4 hover:shadow-lg transition-all border-primary">
+    <div className={`${appointment.status === "active" ? "bg-white" : "bg-red-100"} shadow-md rounded-lg p-6 border-l-4 hover:!scale-[1.02] hover:!shadow-xl duration-300 transition-all border-primary`}>
       {/* Header Section */}
       <div className="flex flex-col items-center justify-center mb-4" >
         <h2 className="text-lg font-semibold text-gray-700 mb-1">
