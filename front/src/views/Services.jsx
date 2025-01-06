@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 import { ServicesContext } from "../context/ServicesContext";
 import { SlideLeft } from "../utils/animation";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const { services } = useContext(ServicesContext);
@@ -24,7 +25,7 @@ const Services = () => {
           {services.map((service) => (
             <motion.div
               key={service.id}
-              className="bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow"
+              className="bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow flex flex-col justify-between items-center"
               initial="hidden"
               animate="visible"
               variants={SlideLeft}
@@ -39,9 +40,12 @@ const Services = () => {
               <p className="text-gray-800 font-semibold mt-4">
                 ${service.price}
               </p>
-              <button className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-quaternary transition-all">
-                Ver más
-              </button>
+              <Link
+                to="/schedule"
+                className="mt-4 px-4 py-2 bg-tertiary text-white rounded-lg hover:bg-quaternary transition-all"
+              >
+                Solicitar
+              </Link>
             </motion.div>
           ))}
         </div>
