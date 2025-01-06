@@ -21,14 +21,14 @@ const NavBarMenu = ({ isOpen, handleLogout }) => {
           <div className="text-xl font-semibold uppercase bg-secondary text-gray-600 py-10 m-6 rounded-3xl">
             <ul className="flex flex-col justify-center items-center gap-10">
               <li>
-                <Link to="/schedule">Nuestros servicios</Link>
+                <Link to="/">Nuestros servicios</Link>
               </li>
               <li>
-                <Link to="/about">Nosotros</Link>
+                <Link to="/schedule">Agenda un turno</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/contact">Contacto</Link>
-              </li>
+              </li> */}
               {currentUser && (
                 <>
                   <hr className="w-3/4 border-t border-gray-500" />
@@ -37,7 +37,7 @@ const NavBarMenu = ({ isOpen, handleLogout }) => {
                   </li>
                   {isAdmin && (
                     <li>
-                      <Link to="/admin">Admin</Link>
+                      <Link to="/create-service">Crear servicio</Link>
                     </li>
                   )}
                   <li>
