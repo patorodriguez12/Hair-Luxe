@@ -79,14 +79,14 @@ const NavBar = () => {
                     Agenda tu turno
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     to="/contact"
                     className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
                   >
                     Trabaja con nosotros
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
 
