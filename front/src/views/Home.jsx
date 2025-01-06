@@ -1,10 +1,11 @@
 import Hero from "../components/Home/HeroHome";
 import ServiceHome from "../components/Home/ServiceHome";
 import { Link } from "react-router-dom";
+import ScrollToTop from "../components/Home/ScrollToTop";
 
 const Home = () => {
   return (
-    <div id="home" className="bg-gray-100 text-gray-800">
+    <div id="home" className="bg-gray-100 text-gray-800 relative">
       {/* Hero Section */}
 
       <Hero />
@@ -44,6 +45,9 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 };
