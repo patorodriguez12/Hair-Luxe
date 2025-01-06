@@ -24,52 +24,31 @@ const Profile = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto p-4 flex flex-col items-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.1 }}
     >
-      <motion.h1
-        className="text-4xl font-bold mb-8 text-center text-blue-600"
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        Perfil
-      </motion.h1>
-      <motion.div
-        className="bg-white shadow-lg rounded-lg px-8 py-6 w-full max-w-md md:max-w-lg lg:max-w-xl"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-          Información del Usuario
-        </h2>
-        <div className="space-y-4">
-          <p>
-            <strong className="text-gray-800">Nombre:</strong>{" "}
-            {currentUser.forename}
-          </p>
-          <p>
-            <strong className="text-gray-800">Apellido:</strong>{" "}
-            {currentUser.surname}
-          </p>
-          <p>
-            <strong className="text-gray-800">Email:</strong>{" "}
-            {currentUser.email}
+      <div className="min-h-screen flex flex-col md:flex-row">
+        {/* Left side: User Info */}
+        <div className="md:w-1/2 bg-primary text-white flex flex-col justify-center items-center p-8">
+          <h1 className="text-3xl font-bold mt-4 text-quaternary">
+            ¡Bienvenido, {currentUser.forename}!
+          </h1>
+          <p className="mt-2 text-lg text-quaternary">
+            Aquí puedes ver y gestionar tus turnos.
           </p>
         </div>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="w-full mt-8"
-      >
-        <MyAppointments />
-      </motion.div>
+
+        {/* Right side: Appointments */}
+        <div className="md:w-1/2 bg-secondary text-black flex flex-col justify-center items-center p-6">
+          <h2 className="text-2xl font-bold mb-4 text-quaternary">
+            Tus Turnos Agendados
+          </h2>
+          <div className="w-full max-w-lg">
+            <MyAppointments />
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };

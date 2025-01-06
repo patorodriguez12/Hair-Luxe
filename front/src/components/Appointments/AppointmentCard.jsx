@@ -2,24 +2,32 @@ import PropTypes from "prop-types";
 
 const AppointmentCard = ({ appointment, handleOnClick }) => {
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 border-t-4 border-blue-500 hover:shadow-xl transition-all">
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold text-gray-800">
+    <div className="bg-white shadow-md rounded-lg p-6 border-l-4 hover:shadow-lg transition-all border-primary">
+      {/* Header Section */}
+      <div className="flex flex-col items-center justify-center mb-4" >
+        <h2 className="text-lg font-semibold text-gray-700 mb-1">
           📅 {appointment.date}
         </h2>
-        <p className="text-lg text-gray-600">⏰ {appointment.time}</p>
+        <hr className="w-3/4 border-t border-gray-500" />
+        <p className="text-md font-semibold text-gray-700">
+          ⏰ {appointment.time}
+        </p>
       </div>
+
+      {/* Status Badge */}
       <div
-        className={`px-3 py-1 text-sm font-medium rounded-full w-fit ${
+        className={`px-4 py-1 text-sm font-semibold rounded-full w-fit ${
           appointment.status === "active"
-            ? "bg-green-200 text-green-700"
-            : "bg-red-200 text-red-700"
+            ? "bg-green-100 text-green-600"
+            : "bg-red-100 text-red-600"
         }`}
       >
         {appointment.status === "active" ? "Activo" : "Cancelado"}
       </div>
+
+      {/* Action Button */}
       <button
-        className="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+        className="mt-4 w-full py-2 bg-tertiary text-white rounded-md hover:bg-quaternary transition-all font-medium"
         onClick={() => handleOnClick(appointment.id)}
       >
         Ver Detalles

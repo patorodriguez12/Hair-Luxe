@@ -74,18 +74,16 @@ const MyAppointments = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div
-      id="home"
-      className="bg-gradient-to-r from-blue-50 to-blue-100 text-gray-800 py-12 min-h-screen"
-    >
+    <div className="min-h-screen bg-secondary text-gray-800 py-12">
       <div className="container mx-auto px-6">
-        <h1 className="text-4xl font-extrabold mb-8 text-blue-700">
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-quaternary text-center">
           Mis Turnos
         </h1>
 
         {appointments.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {/* Appointment Cards Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6">
               {currentAppointments.map((appointment) => (
                 <AppointmentCard
                   key={appointment.id}
@@ -94,6 +92,8 @@ const MyAppointments = () => {
                 />
               ))}
             </div>
+
+            {/* Pagination */}
             <div className="flex justify-center mt-6">
               <nav>
                 <ul className="flex list-none">
@@ -101,10 +101,10 @@ const MyAppointments = () => {
                     <li key={number} className="mx-1">
                       <button
                         onClick={() => paginate(number)}
-                        className={`px-3 py-1 rounded ${
+                        className={`px-3 py-1 rounded-lg transition-all ${
                           currentPage === number
-                            ? "bg-blue-500 text-white"
-                            : "bg-white text-blue-500 border border-blue-500"
+                            ? "bg-primary text-white"
+                            : "bg-white text-primary border border-primary hover:bg-primary hover:text-white"
                         }`}
                       >
                         {number}
@@ -117,19 +117,21 @@ const MyAppointments = () => {
           </>
         ) : (
           <div className="text-center">
-            <p className="text-2xl font-bold mb-4">
+            <p className="text-2xl font-semibold mb-4">
               No tienes turnos agendados.
             </p>
             <Link
               to="/schedule"
-              className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+              className="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-quaternary transition-all"
             >
               Agendar un Turno
             </Link>
           </div>
         )}
+
+        {/* Appointment Detail Overlay */}
+        {detail && <AppointmentDetail handleOnClose={handleOnClose} id={id} />}
       </div>
-      {detail && <AppointmentDetail handleOnClose={handleOnClose} id={id} />}
     </div>
   );
 };
