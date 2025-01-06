@@ -1,14 +1,19 @@
 import Hero from "../components/Home/HeroHome";
 import ServiceHome from "../components/Home/ServiceHome";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <div id="home" className="bg-gray-100 text-gray-800">
       {/* Hero Section */}
+
       <Hero />
 
       {/* Services Section */}
-      <ServiceHome />
+
+      <Link to="/all-services">
+        <ServiceHome />
+      </Link>
 
       {/* Testimonials Section */}
       <section className="bg-gray-200 py-12">

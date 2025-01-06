@@ -8,6 +8,7 @@ import AppointmentSchedule from "./views/AppointmentSchedule";
 import NotFound from "./views/NotFound";
 import Profile from "./views/Profile";
 import CreateService from "./views/CreateService";
+import Services from "./views/Services";
 
 // Layouts imports
 import PublicLayout from "./layouts/PublicLayout";
@@ -21,6 +22,7 @@ function App() {
       {/* Public routes */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/all-services" element={<Services />} />
       </Route>
 
       {/* Authenticated routes */}
