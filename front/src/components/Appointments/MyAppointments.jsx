@@ -74,7 +74,7 @@ const MyAppointments = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-full bg-secondary text-gray-800 py-12">
+    <div className="min-h-full bg-gray-100 text-gray-800 py-12">
       <div className="container mx-auto px-6 ">
         {appointments.length > 0 ? (
           <>
@@ -118,7 +118,7 @@ const MyAppointments = () => {
             </p>
             <Link
               to="/schedule"
-              className="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-quaternary transition-all"
+              className="inline-block mt-6 px-6 py-3 bg-tertiary text-white rounded-lg hover:bg-quaternary transition-all"
             >
               Agendar un Turno
             </Link>

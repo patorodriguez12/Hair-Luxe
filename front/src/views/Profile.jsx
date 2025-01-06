@@ -30,7 +30,7 @@ const Profile = () => {
     >
       <div className="min-h-screen flex flex-col md:flex-row">
         {/* Left side: User Info */}
-        <div className="md:w-1/4 bg-primary text-white flex flex-col items-center p-8">
+        <div className="md:w-1/4 bg-secondary text-white flex flex-col items-center p-8">
           <h1 className="text-3xl font-bold mt-4 text-quaternary">
             ¡Hola, {currentUser.forename}!
           </h1>
@@ -54,7 +54,7 @@ const Profile = () => {
         </div>
 
         {/* Right side: Appointments */}
-        <div className="md:w-3/4 bg-secondary flex flex-col items-center pt-4 m-0">
+        <div className="md:w-3/4 bg-gray-100 flex flex-col items-center pt-4 m-0">
           <h2 className="text-2xl font-bold mb-4 text-quaternary">
             Tus Turnos Agendados
           </h2>
