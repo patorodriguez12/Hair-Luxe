@@ -43,13 +43,15 @@ const Login = () => {
       setCurrentUser(user);
       Cookies.set("token", token, { expires: 7 });
       toast.success("Inicio de sesión exitoso, bienvenido", {
-        position: "bottom-left",
+        position: "top-center",
+        theme: 'colored',
       });
       navigate("/");
     } catch (error) {
       const errorMessage = error.response?.data.error || "Error de servidor";
       toast.error(errorMessage, {
-        position: "bottom-right",
+        position: "top-center",
+        theme: 'colored',
       });
     } finally {
       setLoading(false);

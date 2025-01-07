@@ -37,13 +37,15 @@ const Register = () => {
       const response = await axios.post(URL, values);
       console.log(response);
       toast.success("Registro realizado con exito, por favor inicia sesion", {
-        position: "bottom-left",
+        position: "top-center",
+        theme: "colored",
       });
       navigate("/login");
     } catch (error) {
       const errorMessage = error.response?.data.error || "Error de servidor";
       toast.error(errorMessage, {
-        position: "bottom-right",
+        position: "top-center",
+        theme: "colored",
       });
     } finally {
       setLoading(false);
