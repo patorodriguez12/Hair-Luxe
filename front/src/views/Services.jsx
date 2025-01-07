@@ -25,7 +25,7 @@ const Services = () => {
           {services.map((service) => (
             <motion.div
               key={service.id}
-              className="bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl transition-shadow flex flex-col justify-between items-center"
+              className="bg-white shadow-lg rounded-lg p-6 hover:shadow-2xl hover:!scale-105 duration-300 transition-all flex flex-col justify-between items-center"
               initial="hidden"
               animate="visible"
               variants={SlideLeft}

@@ -50,7 +50,7 @@ const Hero = () => {
                 Reserva ahora
               </Link>
               <Link
-                to="/"
+                to="/all-services"
                 className="flex justify-end items-center gap-2 font-semibold "
               >
                 <span className="w-10 h-10 bg-secondary/15 rounded-full flex justify-center items-center">

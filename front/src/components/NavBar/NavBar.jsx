@@ -34,13 +34,6 @@ const NavBar = () => {
     navigate("/login");
   };
 
-  const handleScrollToServices = () => {
-    const serviceSection = document.getElementById("service-section");
-    if (serviceSection) {
-      serviceSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <>
       <motion.div
@@ -64,12 +57,12 @@ const NavBar = () => {
             <div className="hidden lg:block">
               <ul className="flex items-center gap-6">
                 <li>
-                  <button
+                  <Link
+                    to="/all-services"
                     className="inline-block text-gray-600 text-sm xl:text-base py-1 px-2 xl:px-4 hover:text-quaternary transition-all duration-300 font-semibold"
-                    onClick={handleScrollToServices}
                   >
                     Nuestros servicios
-                  </button>
+                  </Link>
                 </li>
                 <li>
                   <Link
