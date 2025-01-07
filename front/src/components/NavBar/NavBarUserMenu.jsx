@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import ConfirmationModal from "../Confirmation/ConfirmationModal";
 
 const NavBarUserMenu = ({ isOpen, handleLogout }) => {
   const { currentUser } = useContext(AuthContext);
   const isAdmin = currentUser && currentUser.role === "admin";
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <AnimatePresence>
@@ -40,13 +42,20 @@ const NavBarUserMenu = ({ isOpen, handleLogout }) => {
             <hr className="w-3/4 border-t border-gray-500" />
             <li>
               <button
-                onClick={handleLogout}
+                onClick={() => setIsModalOpen(true)}
                 className="block w-full text-left px-4 py-2 text-gray-600 hover:text-red-500"
               >
                 Cerrar Sesión
               </button>
             </li>
           </ul>
+          <ConfirmationModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onConfirm={handleLogout}
+            message="¿Estás seguro que quieres cerrar sesión?"
+            title="Cerrar sesión"
+          />
         </motion.div>
       )}
     </AnimatePresence>
