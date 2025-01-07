@@ -31,12 +31,12 @@ export const scheduleAppointmentService = async (
   });
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Usuario no encontrado.");
   }
 
   const service = await ServiceRepository.findOneBy({ id: serviceId });
   if (!service) {
-    throw new Error("Service not found");
+    throw new Error("Servicio no encontrado.");
   }
 
   const newAppointment = AppointmentRepository.create({
@@ -54,7 +54,7 @@ export const cancelAppointmentService = async (
 ): Promise<Appointment | null> => {
   const appointment = await AppointmentRepository.findOneBy({ id });
   if (!appointment) {
-    throw new Error("Appointment not found");
+    throw new Error("Turno no encontrado.");
   }
 
   appointment.status = "cancelled";

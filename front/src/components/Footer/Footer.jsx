@@ -24,7 +24,7 @@ const Footer = () => {
           </li>
         </ul>
         <p className="text-xs mt-4">
-          Developed with 💟{" "}
+          Developed with 💖 by{" "}
           <a
             href="https://github.com/patorodriguez12"
             className="hover:text-white text-tertiary"

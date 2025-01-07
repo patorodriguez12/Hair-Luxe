@@ -24,7 +24,7 @@ export const getUserByIdService = async (id: number): Promise<User | null> => {
 
   // check if the id exists
   if (!user) {
-    throw new Error(`User with id ${id} not exists`);
+    throw new Error(`Usuario con el id ${id} no existe.`);
   }
   return user;
 };
@@ -66,13 +66,13 @@ export const loginUserService = async (
 
   // if user not found, throw error
   if (!user) {
-    throw new Error(`User with email ${email} does not exist.`);
+    throw new Error(`No encontramos una cuenta con el email ${email} registrado.`);
   }
 
   // compare password
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    throw new Error("Invalid password.");
+    throw new Error("Contraseña incorrecta.");
   }
 
   // generate JWT token
