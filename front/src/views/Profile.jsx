@@ -38,18 +38,19 @@ const Profile = () => {
             Aquí puedes ver y gestionar tus turnos.
           </p>
           <hr className="w-3/4 border-t border-gray-500 p-4" />
-          <div className="flex flex-col items-center mt-4">
-            <p className="mt-2 text-lg text-quaternary">
+          <div className="min-w-[300px] mb-4 text-lg text-quaternary">
+            <div className="flex justify-between mt-2">
               <span className="font-semibold">Nombre:</span>{" "}
-              {currentUser.forename}
-            </p>
-            <p className="mt-2 text-lg text-quaternary">
+              <span>{currentUser.forename}</span>
+            </div>
+            <div className="flex justify-between mt-2">
               <span className="font-semibold">Apellido:</span>{" "}
-              {currentUser.surname}
-            </p>
-            <p className="mt-2 text-lg text-quaternary">
-              <span className="font-semibold">Correo:</span> {currentUser.email}
-            </p>
+              <span>{currentUser.surname}</span>
+            </div>
+            <div className="flex justify-between mt-2">
+              <span className="font-semibold">Correo: {" "}</span>
+              <span>{currentUser.email}</span>
+            </div>
           </div>
         </div>
 

@@ -92,23 +92,68 @@ const MyAppointments = () => {
             {/* Pagination */}
             <div className="flex justify-center mt-6">
               <nav>
-                <ul className="flex list-none">
-                  {pageNumbers.map((number) => (
-                    <li key={number} className="mx-1">
+                {pageNumbers.length > 1 && (
+                  <ul className="flex list-none items-center">
+                    {/* Botón de retroceso */}
+                    <li className="mx-1">
                       <button
-                        onClick={() => paginate(number)}
+                        onClick={() =>
+                          currentPage > 1 && paginate(currentPage - 1)
+                        }
                         className={`px-3 py-1 rounded-lg transition-all ${
-                          currentPage === number
-                            ? "bg-secondary text-white"
+                          currentPage === 1
+                            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                             : "bg-secondary text-primary border border-primary hover:bg-primary hover:text-white"
                         }`}
+                        disabled={currentPage === 1}
                       >
-                        {number}
+                        &#8592;
                       </button>
                     </li>
-                  ))}
-                </ul>
+
+                    {/* Números de página */}
+                    {pageNumbers.map((number) => (
+                      <li key={number} className="mx-1">
+                        <button
+                          onClick={() => paginate(number)}
+                          className={`px-3 py-1 rounded-lg transition-all ${
+                            currentPage === number
+                              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                              : "bg-secondary text-primary border border-primary hover:bg-primary hover:text-white"
+                          }`}
+                        >
+                          {number}
+                        </button>
+                      </li>
+                    ))}
+
+                    {/* Botón de avance */}
+                    <li className="mx-1">
+                      <button
+                        onClick={() =>
+                          currentPage < pageNumbers.length &&
+                          paginate(currentPage + 1)
+                        }
+                        className={`px-3 py-1 rounded-lg transition-all ${
+                          currentPage === pageNumbers.length
+                            ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                            : "bg-secondary text-primary border border-primary hover:bg-primary hover:text-white"
+                        }`}
+                        disabled={currentPage === pageNumbers.length}
+                      >
+                        &#8594;
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </nav>
+            </div>
+            <div className="text-center">
+              {pageNumbers.length > 1 && (
+                <p className="text-sm mt-2">
+                  Página {currentPage} de {pageNumbers.length}
+                </p>
+              )}
             </div>
           </>
         ) : (

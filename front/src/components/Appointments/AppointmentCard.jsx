@@ -8,7 +8,7 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
       {/* Service Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-800">
-          {appointment.service.name}
+         ✂ {appointment.service.name}
         </h3>
         <span
           className={`px-3 py-1 text-sm font-medium rounded-full ${
@@ -24,15 +24,15 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
       {/* Details Section */}
       <div className="mb-4 text-gray-600">
         <div className="flex justify-between">
-          <span className="font-medium">Fecha:</span>
+          <span className="font-semibold">Fecha:</span>
           <span>{appointment.date}</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-medium">Hora:</span>
+          <span className="font-semibold">Hora:</span>
           <span>{appointment.time}</span>
         </div>
         <div className="flex justify-between">
-          <span className="font-medium">ID:</span>
+          <span className="font-semibold">Turno numero:</span>
           <span>{appointment.service.id}</span>
         </div>
       </div>
