@@ -40,15 +40,15 @@ const Profile = () => {
           <hr className="w-3/4 border-t border-gray-500 p-4" />
           <div className="min-w-[300px] mb-4 text-lg text-quaternary">
             <div className="flex justify-between mt-2">
-              <span className="font-semibold">Nombre:</span>{" "}
+              <span className="font-semibold">Nombre:</span>
               <span>{currentUser.forename}</span>
             </div>
             <div className="flex justify-between mt-2">
-              <span className="font-semibold">Apellido:</span>{" "}
+              <span className="font-semibold">Apellido:</span>
               <span>{currentUser.surname}</span>
             </div>
             <div className="flex justify-between mt-2">
-              <span className="font-semibold">Correo: {" "}</span>
+              <span className="font-semibold">Correo:</span>
               <span>{currentUser.email}</span>
             </div>
           </div>

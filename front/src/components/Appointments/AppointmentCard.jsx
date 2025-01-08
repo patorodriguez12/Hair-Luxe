@@ -39,7 +39,7 @@ const AppointmentCard = ({ appointment, handleOnClick }) => {
 
       {/* Action Button */}
       <button
-        className="w-full py-2 bg-secondary text-white rounded-lg hover:bg-quaternary transition-all font-medium"
+        className="w-full py-2 bg-secondary text-black rounded-lg hover:bg-quaternary hover:text-white transition-all font-medium"
         onClick={() => handleOnClick(appointment.id)}
       >
         Ver Detalles
