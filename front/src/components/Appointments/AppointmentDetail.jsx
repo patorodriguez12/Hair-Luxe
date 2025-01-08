@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
@@ -97,11 +96,6 @@ const AppointmentDetail = ({ handleOnClose, id }) => {
       </div>
     </div>
   );
-};
-
-AppointmentDetail.propTypes = {
-  handleOnClose: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
 };
 
 export default AppointmentDetail;

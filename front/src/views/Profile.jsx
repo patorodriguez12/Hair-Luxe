@@ -30,7 +30,7 @@ const Profile = () => {
     >
       <div className="min-h-screen flex flex-col md:flex-row">
         {/* Left side: User Info */}
-        <div className="md:w-1/4 bg-secondary text-white flex flex-col items-center p-8">
+        <div className="md:w-1/4 bg-gray-200 text-white flex flex-col items-center p-8">
           <h1 className="text-3xl font-bold mt-4 text-quaternary">
             ¡Hola, {currentUser.forename}!
           </h1>

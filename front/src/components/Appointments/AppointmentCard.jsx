@@ -1,49 +1,51 @@
-import PropTypes from "prop-types";
-
 const AppointmentCard = ({ appointment, handleOnClick }) => {
   return (
-    <div className={`${appointment.status === "active" ? "bg-white" : "bg-red-100"} shadow-md rounded-lg p-6 border-l-4 hover:!scale-[1.02] hover:!shadow-xl duration-300 transition-all border-primary`}>
-      {/* Header Section */}
-      <div className="flex flex-col items-center justify-center mb-4" >
-        <h2 className="text-lg font-semibold text-gray-700 mb-1">
-          📅 {appointment.date}
-        </h2>
-        <hr className="w-3/4 border-t border-gray-500" />
-        <p className="text-md font-semibold text-gray-700">
-          ⏰ {appointment.time}
-        </p>
+    <div
+      className={`${
+        appointment.status === "active" ? "bg-white" : "bg-red-50"
+      } shadow-md rounded-lg p-6 border-l-4 hover:scale-[1.02] hover:shadow-xl transition-all duration-300 border-primary`}
+    >
+      {/* Service Header */}
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-gray-800">
+          {appointment.service.name}
+        </h3>
+        <span
+          className={`px-3 py-1 text-sm font-medium rounded-full ${
+            appointment.status === "active"
+              ? "bg-green-100 text-green-600"
+              : "bg-red-100 text-red-600"
+          }`}
+        >
+          {appointment.status === "active" ? "Activo" : "Cancelado"}
+        </span>
       </div>
 
-      {/* Status Badge */}
-      <div
-        className={`px-4 py-1 text-sm font-semibold rounded-full w-fit ${
-          appointment.status === "active"
-            ? "bg-green-100 text-green-600"
-            : "bg-red-100 text-red-600"
-        }`}
-      >
-        {appointment.status === "active" ? "Activo" : "Cancelado"}
+      {/* Details Section */}
+      <div className="mb-4 text-gray-600">
+        <div className="flex justify-between">
+          <span className="font-medium">Fecha:</span>
+          <span>{appointment.date}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-medium">Hora:</span>
+          <span>{appointment.time}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-medium">ID:</span>
+          <span>{appointment.service.id}</span>
+        </div>
       </div>
 
       {/* Action Button */}
       <button
-        className="mt-4 w-full py-2 bg-tertiary text-white rounded-md hover:bg-quaternary transition-all font-medium"
+        className="w-full py-2 bg-secondary text-white rounded-lg hover:bg-quaternary transition-all font-medium"
         onClick={() => handleOnClick(appointment.id)}
       >
         Ver Detalles
       </button>
     </div>
   );
-};
-
-AppointmentCard.propTypes = {
-  appointment: PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-  handleOnClick: PropTypes.func.isRequired,
 };
 
 export default AppointmentCard;
